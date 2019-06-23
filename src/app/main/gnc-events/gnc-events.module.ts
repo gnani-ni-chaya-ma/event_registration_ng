@@ -4,11 +4,15 @@ import { RouterModule } from '@angular/router';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { ListComponent } from './list/list.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { FuseSidebarModule } from '@fuse/components';
+import { MatSelectModule, MatInputModule, MatIconModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
+import { FuseSharedModule } from '@fuse/shared.module';
+import { AcademyCourseService } from './course.service';
 
 const routes = [
   {
     path: '',
-    redirectTo: 'categories',
+    redirectTo: 'list',
     pathMatch: 'full'
   },
   {
@@ -30,8 +34,15 @@ const routes = [
   declarations: [RegistrationFormComponent, ListComponent, CategoriesComponent],
   imports: [
     RouterModule.forChild(routes),
-
-    CommonModule
-  ]
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    CommonModule,
+    FuseSharedModule,
+    FuseSidebarModule
+  ],
+  providers: []
 })
 export class GncEventsModule { }
