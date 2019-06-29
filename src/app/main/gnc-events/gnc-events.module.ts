@@ -4,15 +4,25 @@ import { RouterModule } from '@angular/router';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { ListComponent } from './list/list.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { FuseSidebarModule } from '@fuse/components';
-import { MatSelectModule, MatInputModule, MatIconModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
-import { FuseSharedModule } from '@fuse/shared.module';
+import { MatSelectModule } from '@angular/material';
 import { AcademyCourseService } from './course.service';
+
+import {
+  MatIconModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule,
+  MatDialogModule, MatChipsModule, MatListModule, MatProgressBarModule, MatSidenavModule, MatTooltipModule
+} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FuseSharedModule } from '@fuse/shared.module';
+import { FuseMaterialColorPickerModule, FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
+
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule, MatInputModule, MatMenuModule, MatRippleModule, MatTableModule, MatToolbarModule, MatAutocompleteModule, MatRadioModule } from '@angular/material';
+
 
 const routes = [
   {
     path: '',
-    redirectTo: 'list',
+    redirectTo: 'categories',
     pathMatch: 'full'
   },
   {
@@ -27,22 +37,42 @@ const routes = [
     path: 'registration-form',
     component: RegistrationFormComponent
   }
+  
+
 ];
 
-
 @NgModule({
-  declarations: [RegistrationFormComponent, ListComponent, CategoriesComponent],
-  imports: [
-    RouterModule.forChild(routes),
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    CommonModule,
-    FuseSharedModule,
-    FuseSidebarModule
-  ],
-  providers: []
-})
+    declarations: [RegistrationFormComponent, ListComponent, CategoriesComponent],
+    imports: [
+      RouterModule.forChild(routes),
+      
+      MatSelectModule,
+      BrowserAnimationsModule,
+      MatChipsModule,
+      MatDialogModule,      
+      MatListModule,
+      MatProgressBarModule,
+      MatSidenavModule,
+      MatTooltipModule,
+      FuseMaterialColorPickerModule,
+      FormsModule,
+      MatButtonModule,
+      MatCheckboxModule,
+      MatDatepickerModule,
+      MatFormFieldModule,
+      MatIconModule,
+      MatInputModule,
+      MatMenuModule,
+      MatRippleModule,
+      MatTableModule,
+      MatToolbarModule,
+      MatAutocompleteModule,
+      MatRadioModule,
+      FuseSharedModule,
+      FuseConfirmDialogModule,
+      FuseSidebarModule,
+      CommonModule
+    ],
+    providers: []
+  })
 export class GncEventsModule { }

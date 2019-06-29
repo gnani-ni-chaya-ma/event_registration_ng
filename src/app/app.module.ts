@@ -18,6 +18,9 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { GncEventsModule } from './main/gnc-events/gnc-events.module';
 
+
+
+
 const appRoutes: Routes = [
     {
         path      : '**',

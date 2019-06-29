@@ -1,0 +1,82 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+    min-height: 100%;
+
+    #boards {
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .board-list {
+            padding: 32px 0;
+            max-height: none !important;
+
+            .board-list-item {
+                min-width: 270px;
+                // min-height: 240px;
+                width: 270px;
+                padding: 0px 0px;
+                margin: 40px;
+                border-radius: 2px;
+                // background: red;
+                cursor: pointer;
+                
+                
+
+                &:hover {
+                    @include mat-elevation(4);
+                }
+
+                .board-name {
+                    padding-top: 16px;
+                    font-weight: 500;
+               
+
+
+                .img-display{
+                    background-size: cover;
+                }
+                   font-weight: 500;
+               
+
+               
+                    
+                }
+            }
+        }
+    }
+}
+
+                    .clip-text {
+                        font-size: 6em;
+                        font-weight: bold;
+                        line-height: 1;
+                        position: relative;
+                        display: inline-block;
+                        margin: .25em;
+                        padding: .5em .75em;
+                        text-align: center;
+                        /* Color fallback */
+                        color: #fff;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
+                    .clip-text--cover,
+                    .clip-text--cover:before {
+                        background-repeat: no-repeat;
+                        -webkit-background-size: cover;
+                        background-size: cover;
+                        background-position: 50% 50%;
+                    }
+                    .clip-text_eleven {
+                        background-image: url(https://material.angular.io/assets/img/examples/shiba2.jpg);
+                        background-size: cover;
+                        }
+                        .clip-text--cover,
+                        .clip-text--cover:before {
+                            background-repeat: no-repeat;
+                            -webkit-background-size: cover;
+                            background-size: cover;
+                             background-position: 50% 50%;
+                            }
