@@ -3,26 +3,23 @@
 <div id="boards" class="mat-primary-400-bg" fxLayout="column" fxLayoutAlign="start center" fxFlex fusePerfectScrollbar>
 
     <div class="header pt-44 pt-mat-88" fxFlex="0 0 auto">
-        <h1>Events</h1>
+        <h1 class="header-title">Events</h1>
     </div>
 
     <!-- BOARD LIST -->
-    <div class="board-list" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="center center"
-        >
+    <div class="board-list content" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="center center">
 
         <!-- BOARD -->
 
 
-    <div class="board-list-item" *ngFor="let board of boards" [ngStyle]="{background :board.color}"
-             fxLayout="column" fxLayoutAlign="center center"
-             
-              routerLink={{board.link}}>
+        <div class="board-list-item" *ngFor="let board of boards" [ngStyle]="{background :board.color}"
+            fxLayout="column" fxLayoutAlign="center center" routerLink={{board.link}}>
             <!-- <mat-icon class="s-64"></mat-icon> -->
             <!-- <div class="h1 board-name">{{board.title}}</div> -->
             <!-- <div class="clip-text clip-text_eleven clip-text--cover">{{board.title}}</div> -->
             <img class="img-display" mat-card-image src={{board.imgUrl}}>
-            
-            
+
+
         </div>
         <!-- / BOARD -->
 

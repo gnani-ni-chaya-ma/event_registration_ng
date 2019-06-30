@@ -17,13 +17,12 @@ export class ListComponent implements OnInit {
   // course.steps
   course = {
     steps: [
-      { title: '1', content: 'hahaha !!! Data 01 here !' },
-      { title: '2', content: 'hahaha !!! Data 02 here !' },
-      { title: '3', content: 'hahaha !!! Data 03 here !' },
-      { title: '4', content: 'hahaha !!! Data 04 here !' },
-      { title: '5', content: 'hahaha !!! Data 05 here !' },
-      { title: '6', content: 'hahaha !!! Data 06 here !' },
-      { title: '7', content: 'hahaha !!! Data 07 here !' }
+      { title: 'Ahmedabad ok long text', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+      { title: 'Surat', eventsDate: '30th Jun 2019 - 30th Jun 2019', fees: '300.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+      { title: 'Baroda', eventsDate: '04th July 2019 - 05th July 2019', fees: '500.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+      { title: 'SimCity', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '600.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+      { title: 'Mumbai', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '200.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+      { title: 'Gandhidham', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
     ]
   };
   courseStepContent: any;
