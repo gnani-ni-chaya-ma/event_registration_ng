@@ -31,18 +31,6 @@
       </div>
 
 
-      <!-- <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
-      <mat-form-field class="mr-24" fxFlex appearance="outline">
-        <mat-icon matPrefix class="mr-12 s-20 secondary-text">cake</mat-icon>
-        <input matInput [matDatepicker]="birthdayDatePicker" formControlName="birthday"
-          placeholder="Birthday dd/mm/yyyy" required>
-        <mat-datepicker-toggle matSuffix [for]="birthdayDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker disabled=false #birthdayDatePicker></mat-datepicker>
-        <mat-error>"Enter Valid Birthday"</mat-error>
-
-      </mat-form-field>
-    </div> -->
-
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field class="mr-24" fxFlex appearance="outline">
           <mat-label>Date Of Birth</mat-label>
@@ -80,14 +68,17 @@
           <mat-label>YMHT Center</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
           <input type="text" matInput placeholder="YMHT Center" formControlName="ymhtLocationGroup" required
-            [matAutocomplete]="autoGroup">
-          <mat-autocomplete #autoGroup="matAutocomplete">
-            <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-              <mat-option *ngFor="let name of group.names" [value]="name">
-                {{name}}
+            [matAutocomplete]="autoGroup" (blur)="validateLocation($event.target.value)">
+          <mat-autocomplete #autoGroup="matAutocomplete" [displayWith]="displayFn"
+            (optionSelected)="onSelectionChanged($event)">
+            <mat-optgroup *ngFor="let group of centerGroupOptions | async" [label]="group.letter">
+              <mat-option *ngFor="let center of group.centers" [value]="center">
+                {{center.name}}
               </mat-option>
             </mat-optgroup>
           </mat-autocomplete>
+          <mat-error>"Enter Valid Location"</mat-error>
+
         </mat-form-field>
       </div>
 
@@ -99,9 +90,11 @@
 
       </div>
 
-      <button class="submit-btn" color="primary" mat-raised-button type="submit" onsubmit="submitForm()"
-        [disabled]="!eventForm.valid">Submit</button>
+      <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()"
+        >Submit</button>
 
     </form>
   </div>
 </div>
+
+<!-- [disabled]="!eventForm.valid" -->

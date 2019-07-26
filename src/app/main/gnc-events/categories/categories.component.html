@@ -1,4 +1,3 @@
-<!-- BOARDS -->
 
 <div id="boards" class="mat-primary-400-bg" fxLayout="column" fxLayoutAlign="start center" fxFlex fusePerfectScrollbar>
 
@@ -12,26 +11,15 @@
         <!-- BOARD -->
 
 
-        <div class="board-list-item" *ngFor="let board of boards" [ngStyle]="{background :board.color}"
-            fxLayout="column" fxLayoutAlign="center center" routerLink={{board.link}}>
-            <!-- <mat-icon class="s-64"></mat-icon> -->
-            <!-- <div class="h1 board-name">{{board.title}}</div> -->
-            <!-- <div class="clip-text clip-text_eleven clip-text--cover">{{board.title}}</div> -->
-            <img class="img-display" mat-card-image src={{board.imgUrl}}>
+        <div class="board-list-item" *ngFor="let board of itemList" [ngStyle]="{background :boards[3].color}"
+            fxLayout="column" fxLayoutAlign="center center" (click)="navigate(board)">
+            <!-- <mat-icon class="-64"></mat-icon> -->
+             <!-- <div class="h1 board-name">{{board.category}}</div>  -->
+             <div class="clip-text clip-text_eleven clip-text--cover">{{board.category}}</div> 
+            <!-- <img class="img-display" mat-card-image src={{board.imgUrl}}> --> 
 
 
         </div>
-        <!-- / BOARD -->
-
-        <!-- NEW BOARD BUTTON -->
-        <!-- <div class="board-list-item add-new-board" fxLayout="column" fxLayoutAlign="center center"
-             (click)="newBoard()"
-             [@animate]="{value:'*',params:{y:'100%'}}">
-            <mat-icon class="s-64">add_circle</mat-icon>
-            <div class="board-name">Add new board</div>
-        </div> -->
-        <!-- / NEW BOARD BUTTON -->
-
     </div>
     <!-- / BOARD LIST -->
 </div>

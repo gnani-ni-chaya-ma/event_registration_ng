@@ -17,6 +17,7 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { GncEventsModule } from './main/gnc-events/gnc-events.module';
+import { DataService } from './main/gnc-events/services/dataService.service';
 
 
 
@@ -59,6 +60,7 @@ const appRoutes: Routes = [
         LayoutModule,
         GncEventsModule
     ],
+    providers:[DataService],
     bootstrap   : [
         AppComponent
     ]

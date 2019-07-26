@@ -2,6 +2,11 @@ import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef, QueryList, Vie
 import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
+import { EventService } from '../services/event.service';
+import { Observable } from 'rxjs';
+import { Route } from '@angular/compiler/src/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../services/dataService.service';
 
 @Component({
   selector: 'app-list',
@@ -15,18 +20,33 @@ export class ListComponent implements OnInit {
 
   animationDirection: 'left' | 'right' | 'none';
   // course.steps
-  course = {
-    steps: [
-      { title: 'Ahmedabad ok long text', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
-      { title: 'Surat', eventsDate: '30th Jun 2019 - 30th Jun 2019', fees: '300.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
-      { title: 'Baroda', eventsDate: '04th July 2019 - 05th July 2019', fees: '500.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
-      { title: 'SimCity', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '600.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
-      { title: 'Mumbai', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '200.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
-      { title: 'Gandhidham', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
-    ]
-  };
+  itemList: any;
+  // course = {
+  //   steps: [
+  //     { title: 'Ahmedabad ok long text', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Surat', eventsDate: '30th Jun 2019 - 30th Jun 2019', fees: '300.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Baroda', eventsDate: '04th July 2019 - 05th July 2019', fees: '500.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'SimCity', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '600.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Mumbai', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '200.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Gandhidham', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Ahmedabad ok long text', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Surat', eventsDate: '30th Jun 2019 - 30th Jun 2019', fees: '300.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Baroda', eventsDate: '04th July 2019 - 05th July 2019', fees: '500.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'SimCity', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '600.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Mumbai', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '200.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Gandhidham', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Ahmedabad ok long text', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Surat', eventsDate: '30th Jun 2019 - 30th Jun 2019', fees: '300.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Baroda', eventsDate: '04th July 2019 - 05th July 2019', fees: '500.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'SimCity', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '600.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Mumbai', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '200.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //     { title: 'Gandhidham', eventsDate: '29th Jun 2019 - 30th Jun 2019', fees: '400.00', lastDate: '26th Jun 2019', lateFee: '100.00', venue: 'Krupali Farm, Near Wonder Villa, Vav-Jokha Road, Vav Village, Kamrej Taluka, Surat-GJ, IN, 0', contact: '9537371313', },
+  //   ]
+  // };
   courseStepContent: any;
   currentStep: number;
+
+  categoryName: string;
 
   @ViewChildren(FusePerfectScrollbarDirective)
   fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;
@@ -34,13 +54,19 @@ export class ListComponent implements OnInit {
   constructor(
     // private _academyCourseService: AcademyCourseService,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _fuseSidebarService: FuseSidebarService
+    private _fuseSidebarService: FuseSidebarService,
+    private eventService: EventService,
+    private router: Router,
+    private dataService: DataService
   ) {
     this.animationDirection = 'none';
     this.currentStep = 0;
+
+
   }
 
   ngOnInit() {
+    this.fetchData();
   }
 
   gotoStep(step): void {
@@ -56,7 +82,7 @@ export class ListComponent implements OnInit {
   }
 
   gotoNextStep(): void {
-    if (this.currentStep === this.course.steps.length - 1) {
+    if (this.currentStep === this.itemList.length - 1) {
       return;
     }
 
@@ -89,6 +115,22 @@ export class ListComponent implements OnInit {
 
   toggleSidebar(name): void {
     this._fuseSidebarService.getSidebar(name).toggleOpen();
+  }
+
+  async fetchData() {
+    if (this.dataService.category == null || this.dataService.category == "") {
+      this.router.navigate(['/categories']);
+      return;
+    }
+
+    var response = await this.eventService.fetchEvents();
+    this.itemList = response;
+    
+  }
+
+  eventClicked(event: any) {
+    this.dataService.event = event;
+    this.router.navigate(['registration-form']);
   }
 
 }
