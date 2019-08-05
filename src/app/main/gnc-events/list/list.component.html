@@ -90,13 +90,13 @@
                         </div>
                         <div class="card-items">
                             <div>
-                                <b> Event Date:</b> {{ step.start_date }} -
-                                {{ step.end_date }}
+                                <b> Event Date:</b> {{ step.start_date | date:'d MMM yyyy' }} -
+                                {{ step.end_date | date:'d MMM yyyy'}}
                             </div>
                             <div><b> Fees: </b>{{ step.fees }}</div>
                             <div>
                                 <b> Last Date of Registration:</b>
-                                {{ step.last_date_of_registration }}
+                                {{ step.last_date_of_registration | date:'d MMM yyyy'}}
                             </div>
                             <div><b> Late Fee:</b> {{ step.late_fees }}</div>
                             <div>

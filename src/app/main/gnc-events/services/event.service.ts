@@ -53,7 +53,7 @@ export class EventService {
       "role": formDetails.role,
       "registration_status": 1,
       "skill": "",
-      "event": 1,
+      "event": this.dataService.event.id,
       "home_center": 1,
       "event_center": 1
   }
