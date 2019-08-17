@@ -15,8 +15,12 @@ export class EventService {
 
   async fetchEvents() {
     var eventList: any;
-    return this.http.get(environment.apiUrl + "/events/?category=" + this.dataService.category.id).toPromise();
+    return this.http.get(environment.apiUrl + "/events/?category=" + this.dataService.category.id+"&active=true").toPromise();
 
+  }
+
+  fetchEvent(eventId: number){
+    return this.http.get(environment.apiUrl + "/events/" + eventId).toPromise();
   }
 
   async fetchEventCategories(){
@@ -24,7 +28,7 @@ export class EventService {
   }
 
   async fetchCenters(){
-    return this.http.get(environment.apiUrl + '/base/centers').toPromise();
+    return this.http.get(environment.apiUrl + '/base/centers?is_displayed=true').toPromise();
   }
 
   async submitForm(formDetails: any){
@@ -36,7 +40,7 @@ export class EventService {
           "date_of_birth": formDetails.birthday._i.year  + "-" + formDetails.birthday._i.month + "-" + formDetails.birthday._i.date,
           "mobile": formDetails.phone,
           "gender": 'male',
-          "other_center": "",
+          "other_center": formDetails.other_center,
           "father_name": "hgsh",
           "father_mobile": "1234567890",
           "email": formDetails.email,
@@ -51,14 +55,15 @@ export class EventService {
       "big_buddy": "",
       "goal_achievement": "",
       "role": formDetails.role,
-      "registration_status": 1,
-      "skill": "",
+      "registration_status": 0,
+      "skill": formDetails.itemList,
       "event": this.dataService.event.id,
-      "home_center": 1,
+      "home_center": formDetails.ymhtLocationGroup.id,
       "event_center": 1
   }
 
-
+    console.log(body);
+    
     let response = await this.http.post(environment.apiUrl +'/events/event-participants/',JSON.stringify(body),{headers: {'content-type':'application/json'}});
     return response.toPromise();
   }

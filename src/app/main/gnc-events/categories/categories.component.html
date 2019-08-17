@@ -1,26 +1,55 @@
-
+<!-- 
 <div id="boards" class="mat-primary-400-bg" fxLayout="column" fxLayoutAlign="start center" fxFlex fusePerfectScrollbar>
 
     <div class="header pt-44 pt-mat-88" fxFlex="0 0 auto">
         <h1 class="header-title">Events</h1>
     </div>
 
-    <!-- BOARD LIST -->
     <div class="board-list content" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="center center">
 
-        <!-- BOARD -->
 
 
         <div class="board-list-item" *ngFor="let board of itemList" [ngStyle]="{background :boards[3].color}"
             fxLayout="column" fxLayoutAlign="center center" (click)="navigate(board)">
-            <!-- <mat-icon class="-64"></mat-icon> -->
-             <!-- <div class="h1 board-name">{{board.category}}</div>  -->
              <div class="clip-text clip-text_eleven clip-text--cover">{{board.category}}</div> 
-            <!-- <img class="img-display" mat-card-image src={{board.imgUrl}}> --> 
 
 
         </div>
     </div>
-    <!-- / BOARD LIST -->
 </div>
-<!-- / BOARDS -->
+
+
+ -->
+
+<div
+    id="boards"
+    class="mat-primary-400-bg"
+    fxLayout="column"
+    fxLayoutAlign="start center"
+    fxFlex
+    fusePerfectScrollbar
+>
+    <div class="header pt-44 pt-mat-88" fxFlex="0 0 auto">
+        <h1 style="font-size: 60px">Categories</h1>
+    </div>
+
+    <div
+        class="board-list"
+        fxFlex="0 0 auto"
+        fxLayout="row wrap"
+        fxLayoutAlign="center center"
+    >
+        <div
+            class="board-list-item"
+            *ngFor="let category of categoryList"
+            (click)="navigate(category)"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+        >
+            <mat-icon class="s-64">assessment</mat-icon>
+            <div class="board-name" style="font-size: 30px">
+                {{ category.category }}
+            </div>
+        </div>
+    </div>
+</div>

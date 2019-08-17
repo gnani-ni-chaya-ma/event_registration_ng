@@ -36,13 +36,24 @@
           <mat-label>Date Of Birth</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">cake</mat-icon>
           <input matInput [matDatepicker]="dp3" placeholder="DOB DD/MM/YYYY" readonly formControlName="birthday"
-            required>
+            required (click)="dp3.open()">
           <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
           <mat-datepicker #dp3></mat-datepicker>
           <mat-error>"Enter Valid Birthday"</mat-error>
         </mat-form-field>
       </div>
-
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="ageGreaterThan21">
+        
+        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline">
+          <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
+          <input matInput  style="display: none" formControlName="role" >
+          <mat-radio-group aria-label="Select an option" matInput formControlName="role" [required]='ageGreaterThan21'>
+            <mat-radio-button value="helper">Helper &nbsp;</mat-radio-button>
+            <mat-radio-button value="coordinator">Coordinator</mat-radio-button>
+          </mat-radio-group>
+          <mat-error>"Choose Valid Role"</mat-error>
+        </mat-form-field>
+      </div>
 
 
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
@@ -58,7 +69,7 @@
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Email</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">email</mat-icon>
-          <input name="email" formControlName="email" matInput type="email" placeholder="Email" required>
+          <input name="email" formControlName="email" matInput type="email" placeholder="Email">
           <mat-error>"Enter Valid Email Address"</mat-error>
         </mat-form-field>
       </div>
@@ -68,9 +79,9 @@
           <mat-label>YMHT Center</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
           <input type="text" matInput placeholder="YMHT Center" formControlName="ymhtLocationGroup" required
-            [matAutocomplete]="autoGroup" (blur)="validateLocation($event.target.value)">
+            [matAutocomplete]="autoGroup" (blur)="validateLocation($event)">
           <mat-autocomplete #autoGroup="matAutocomplete" [displayWith]="displayFn"
-            (optionSelected)="onSelectionChanged($event)">
+            >
             <mat-optgroup *ngFor="let group of centerGroupOptions | async" [label]="group.letter">
               <mat-option *ngFor="let center of group.centers" [value]="center">
                 {{center.name}}
@@ -81,20 +92,26 @@
 
         </mat-form-field>
       </div>
-
-      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="ageGreaterThan21">
-        <mat-radio-group aria-label="Select an option" matInput formControlName="role" [required]='ageGreaterThan21'>
-          <mat-radio-button value="helper">Helper</mat-radio-button>
-          <mat-radio-button value="coordinator">Coordinator</mat-radio-button>
-        </mat-radio-group>
-
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="isOtherCenter">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Other Location</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
+          <input name="other_center" formControlName="other_center" matInput  placeholder="Other Location" [required]='isOtherCenter'>
+          <mat-error>"Please Enter Your Center"</mat-error>
+        </mat-form-field>
       </div>
+<!-- 
+      <div class="mb-24"   >
+       <div *ngFor= "let item of eventItems; let i = index">
+        <mat-checkbox (click)="itemChecked(i)">{{item.name}}</mat-checkbox><br>
+       </div>
+      </div> -->
+      
 
-      <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()"
+
+      <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()" [disabled]="!eventForm.valid"
         >Submit</button>
-
     </form>
   </div>
 </div>
 
-<!-- [disabled]="!eventForm.valid" -->

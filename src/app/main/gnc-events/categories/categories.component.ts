@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import { EventService } from '../services/event.service';
 import { Router } from '@angular/router';
 import { DataService } from '../services/dataService.service';
+import { MatSnackBar } from '@angular/material';
 
 export interface Tile {
   color: string;
@@ -16,20 +17,15 @@ export interface Tile {
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent {
-    boards: any[]  = [{title:"Fuzion",imgUrl:"https://material.angular.io/assets/img/examples/shiba2.jpg",color:"red",link:"/list"},
-    {title:"Fuzion",imgUrl:"https://material.angular.io/assets/img/examples/shiba2.jpg",color:"green",link:"/list"},
-    {title:"Yuva",imgUrl:"https://material.angular.io/assets/img/examples/shiba2.jpg",color:"yellow",link:"/list"},
-    {title:"Yuva",imgUrl:"https://material.angular.io/assets/img/examples/shiba2.jpg",color:"blue",link:"/list"},
-    {title:"Yuva",imgUrl:"https://material.angular.io/assets/img/examples/shiba2.jpg",color:"skyblue",link:"/list"},
-    {title:"Fuzion",imgUrl:"https://material.angular.io/assets/img/examples/shiba2.jpg",color:"green",link:"/list"}];
 
     constructor(
       private eventService: EventService,
       private router: Router,
-      private dataService: DataService
+      private dataService: DataService,
+      private _snackBar: MatSnackBar
     ){}
 
-    itemList: any;
+    categoryList: any;
 
     ngOnInit() {
       this.fetchData();
@@ -42,8 +38,15 @@ export class CategoriesComponent {
     }
 
     async fetchData(){
-      var response = await this.eventService.fetchEventCategories();
-      this.itemList =  response;
-      console.log(response);
+      await this.eventService.fetchEventCategories().then(data=>{
+        this.categoryList = data;
+      }).catch(err=>{
+        this._snackBar.open("Some Error Occured " + err);
+      });
+    
+      
+      
+
+      this.categoryList.splice(0,1);
     }
   }

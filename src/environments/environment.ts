@@ -5,8 +5,12 @@
 export const environment = {
     production: false,
     hmr       : false,
-    apiUrl: 'http://127.0.0.1:8000'
+    // apiUrl: 'http://127.0.0.1:8000'
+    apiUrl: 'http://104.211.88.75:3000'
+
 };
+
+
 
 /*
  * In development mode, to ignore zone related error stack frames such as

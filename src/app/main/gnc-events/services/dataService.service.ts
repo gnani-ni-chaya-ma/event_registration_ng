@@ -5,4 +5,5 @@ export class DataService{
     constructor(){}
     category: any;
     event: any;
+    registeredUserInfo: any;
 }

@@ -1,0 +1,255 @@
+<div
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="gappx"
+    style="width: 100%;"
+    *ngIf="userData"
+>
+    <mat-card class="info-card mat-elevation-z8" style="padding: 0px">
+        <div
+            fxLayout="row"
+            fxLayoutAlign="start start"
+            fxLayoutGap="gappx"
+            class="title"
+        >
+            <mat-card-title style="text-align: center;"
+                >Submitted Form</mat-card-title
+            >
+        </div>
+        <mat-divider></mat-divider>
+        <mat-card-content class="detail-content">
+            <div id="rcorners">
+                <ul>
+                    <li>
+                        Thank you {{ userData.participant.first_name }}
+                        {{ userData.participant.last_name }} for registering
+                    </li>
+                    <li>Step 1 of your registration is complete.</li>
+                    <li>
+                        Please contact local Ymht center coordinator for further
+                        details.
+                    </li>
+                </ul>
+            </div>
+
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="start start"
+                fxLayoutGap="gappx"
+                fxHide.gt-sm="true"
+                fxHide.sm="false"
+            >
+                <div>
+                    <table>
+                        <tr>
+                            <td><b>Name :</b></td>
+                            <td>
+                                <p>
+                                    {{ userData.participant.first_name }}
+                                    {{ userData.participant.last_name }}
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Registration No. :</b>
+                            </td>
+                            <td>
+                                <p>{{ userData.registration_no }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Mobile :</b>
+                            </td>
+                            <td>
+                                <p>{{ userData.participant.mobile }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Gender :</b>
+                            </td>
+                            <td>
+                                <p>{{ userData.participant.gender }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Date of Birth :</b>
+                            </td>
+                            <td>
+                                <p>
+                                    {{
+                                        userData.participant.date_of_birth
+                                            | date: "d MMM yyyy"
+                                    }}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Role: </b>
+                            </td>
+                            <td>
+                                <p>{{ userData.role }}</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <mat-divider fxHide.md="true"></mat-divider>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table>
+                                              
+                        <tr *ngIf="eventCenter">
+                            <td>
+                                <b>Event Fees </b>
+                            </td>
+                            <td>
+                                <p>{{ eventCenter.fees }}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="eventCenter">
+                            <td>
+                                <b>Late Fees </b>
+                            </td>
+                            <td>
+                                <p>{{ eventCenter.late_fees }}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="eventCenter">
+                            <td>
+                                <b>Event Date </b>
+                            </td>
+                            <td>
+                                <p>
+                                    {{
+                                        eventCenter.start_date
+                                            | date: "d MMM yyyy"
+                                    }}
+                                    -
+                                    {{
+                                        eventCenter.end_date
+                                            | date: "d MMM yyyy"
+                                    }}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div
+                fxLayout="row wrap"
+                fxLayoutAlign="space-around start"
+                fxLayoutGap="gappx"
+                fxHide.lt-sm="true"
+                fxHide.sm="true"
+            >
+                <div>
+                    <table>
+                        <tr>
+                            <td><b>Name :</b></td>
+                            <td>
+                                <p>
+                                    {{ userData.participant.first_name }}
+                                    {{ userData.participant.last_name }}
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Registration No. :</b>
+                            </td>
+                            <td>
+                                <p>{{ userData.registration_no }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Mobile :</b>
+                            </td>
+                            <td>
+                                <p>{{ userData.participant.mobile }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Gender :</b>
+                            </td>
+                            <td>
+                                <p>{{ userData.participant.gender }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Date of Birth :</b>
+                            </td>
+                            <td>
+                                <p>
+                                    {{
+                                        userData.participant.date_of_birth
+                                            | date: "d MMM yyyy"
+                                    }}
+                                </p>
+                            </td>
+                        </tr>
+                       
+
+                        <tr>
+                            <td colspan="2">
+                                <mat-divider fxHide.md="true"></mat-divider>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table>
+                       
+                        <tr *ngIf="eventCenter">
+                            <td>
+                                <b>Event Fees </b>
+                            </td>
+                            <td>
+                                <p>{{ eventCenter.fees }}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="eventCenter">
+                            <td>
+                                <b>Late Fees </b>
+                            </td>
+                            <td>
+                                <p>{{ eventCenter.late_fees }}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="eventCenter">
+                            <td>
+                                <b>Event Date </b>
+                            </td>
+                            <td>
+                                <p>
+                                    {{
+                                        eventCenter.start_date
+                                            | date: "d MMM yyyy"
+                                    }}
+                                    -
+                                    {{
+                                        eventCenter.end_date
+                                            | date: "d MMM yyyy"
+                                    }}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
