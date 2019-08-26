@@ -1,108 +1,171 @@
 <div id="academy-course" class="page-layout simple left-sidebar inner-scroll">
-
     <!-- SIDEBAR -->
-    <fuse-sidebar class="sidebar" name="academy-course-left-sidebar-1" position="center" lockedOpen="gt-md">
-
+    <fuse-sidebar
+        class="sidebar"
+        name="academy-course-left-sidebar-1"
+        position="center"
+        lockedOpen="gt-md"
+    >
         <!-- SIDEBAR CONTENT -->
         <div class="content" fusePerfectScrollbar>
-
-
             <div class="label-header">Location's</div>
 
             <div class="steps">
-
-                <div class="step" *ngFor="let step of course.steps; let i = index; let last = last; let first = first"
+                <!-- <div class="step" *ngFor="let step of course.steps; let i = index; let last = last; let first = first" -->
+                <div
+                    class="step"
+                    *ngFor="
+                        let step of itemList;
+                        let i = index;
+                        let last = last;
+                        let first = first
+                    "
                     (click)="gotoStep(i)"
-                    [ngClass]="{'current': currentStep === i, 'completed': currentStep > i, 'last': last, 'first': first}">
+                    [ngClass]="{
+                        current: currentStep === i,
+                        completed: currentStep > i,
+                        last: last,
+                        first: first
+                    }"
+                >
                     <div class="index">
-                        <span>{{i + 1}}</span>
+                        <span>{{ i + 1 }}</span>
                     </div>
-                    <div class="title">{{step?.title}}</div>
+                    <div class="title">{{ step?.name }}</div>
                 </div>
-
             </div>
-
         </div>
         <!-- / SIDEBAR CONTENT -->
-
     </fuse-sidebar>
     <!-- / SIDEBAR -->
 
     <!-- CENTER -->
     <div class="center">
-
         <!-- HEADER -->
-        <div class="header mat-accent-bg p-24" fxLayout="row" fxLayoutAlign="start center">
-
-            <button mat-icon-button class="mr-16" [routerLink]="'/apps/academy/courses'">
-                <mat-icon>arrow_back</mat-icon>
+        <div
+            class="header  p-24"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <button
+                mat-icon-button
+                class="sidebar-toggle mr-16"
+                fxHide.gt-md
+                style="color: white"
+                (click)="toggleSidebar('academy-course-left-sidebar-1')"
+            >
+                <mat-icon>menu</mat-icon>
             </button>
-
             <div>
                 <h2 class="details-header-title">Events Details</h2>
             </div>
-
-            <button mat-icon-button fxLayoutAlign="end end" class="sidebar-toggle mr-16" fxHide.gt-md
-                (click)="toggleSidebar('academy-course-left-sidebar-1')">
-                <mat-icon>menu</mat-icon>
+            <button
+                mat-icon-button
+                class="mr-16"
+                [routerLink]="'/categories'"
+                style="color: white"
+            >
+                <mat-icon>close</mat-icon>
             </button>
-
         </div>
         <!-- / HEADER -->
 
         <!-- CONTENT -->
         <div id="course-content" class="content">
-
-            <ng-container *ngFor="let step of course.steps; let i = index;">
-
-                <div class="course-step" fusePerfectScrollbar *ngIf="currentStep === i" [@slideIn]="animationDirection">
-                    <div [routerLink]="['/registration-form']" fxLayoutAlign="center center" fxLayout="column" id="course-step-content"
-                        class="course-step-content">
-                        <div class="non-semantic-protector">
-                            <!-- ribbons and other content in here -->
-                            <div class="ribbon">
-                                <strong class="ribbon-content">{{step.title}}</strong>
-                            </div>
+            <ng-container *ngFor="let step of itemList; let i = index">
+                <div
+                    class="course-step"
+                    fusePerfectScrollbar
+                    *ngIf="currentStep === i"
+                    [@slideIn]="animationDirection"
+                >
+                    <div
+                        fxLayoutAlign="center center"
+                        fxLayout="column"
+                        (click)="eventClicked(itemList[i])"
+                        id="course-step-content"
+                        class="course-step-content"
+                    >
+                        <div
+                            fxLayout="row"
+                            fxLayoutAlign="end start"
+                            style="width: 100%"
+                        >
+                            <button
+                                mat-raised-button
+                                class="register-button"
+                                (click)="eventClicked(itemList[i])"
+                            >
+                                Register
+                            </button>
                         </div>
+
+                        <p id="rcorners">
+                            <strong class="ribbon-content">{{
+                                step.name
+                            }}</strong>
+                        </p>
+
                         <div class="card-items">
-                            <div> <b> Event Date:</b> {{step.eventsDate}}</div>
-                            <div> <b> Fees: </b>{{step.fees}}</div>
-                            <div> <b> Last Date:</b> {{step.lastDate}}</div>
-                            <div> <b> Late Fee:</b> {{step.lateFee}}</div>
-                            <div> <b> Venue: </b>{{step.venue}}</div>
-                            <div> <b> Contact: </b>{{step.contact}}</div>
+                            <div>
+                                <b> Event Date:</b>
+                                {{ step.start_date | date: "d MMM yyyy" }} -
+                                {{ step.end_date | date: "d MMM yyyy" }}
+                            </div>
+                            <div><b> Fees: </b>{{ step.fees }}</div>
+                            <div>
+                                <b> Last Date of Registration:</b>
+                                {{
+                                    step.last_date_of_registration
+                                        | date: "d MMM yyyy"
+                                }}
+                            </div>
+                            <div><b> Late Fee:</b> {{ step.late_fees }}</div>
+                            <div>
+                                <b> Venue: </b>{{ step.venue.address_1 }},
+                                {{ step.venue.address_2 }},
+                                {{ step.venue.city }}
+                            </div>
+                            <!-- <div> <b> Contact: </b>{{step.contact}}</div> -->
                         </div>
-
                     </div>
                     <!-- <div id="course-step-content" class="course-step-content" [innerHTML]="step.content"></div> -->
-
                 </div>
-
             </ng-container>
-
         </div>
         <!-- / CONTENT -->
 
         <div class="step-navigation">
-
-            <button mat-fab class="previous mat-accent white-fg" (click)="gotoPreviousStep()"
-                [disabled]="currentStep === 0" [fxHide]="currentStep === 0">
+            <button
+                mat-fab
+                class="previous mat-accent white-fg"
+                (click)="gotoPreviousStep()"
+                [disabled]="currentStep === 0"
+                [fxHide]="currentStep === 0"
+            >
                 <mat-icon>chevron_left</mat-icon>
             </button>
 
-            <button mat-fab class="next mat-accent white-fg" (click)="gotoNextStep()"
-                [disabled]="currentStep === course.totalSteps - 1" [fxHide]="currentStep === course.totalSteps - 1">
+            <button
+                mat-fab
+                class="next mat-accent white-fg"
+                (click)="gotoNextStep()"
+                [disabled]="currentStep === itemList?.length - 1"
+                [fxHide]="currentStep === itemList?.length - 1"
+            >
                 <mat-icon>chevron_right</mat-icon>
             </button>
 
-            <button mat-fab class="done mat-green-600-bg" routerLink="/apps/academy/courses"
-                [disabled]="currentStep !== course.totalSteps - 1" [fxShow]="currentStep === course.totalSteps - 1">
+            <!-- <button
+                mat-fab
+                class="done mat-green-600-bg"
+                routerLink="/apps/academy/courses"
+                [disabled]="currentStep !== itemList?.length - 1"
+                [fxShow]="currentStep === itemList?.length - 1"
+            >
                 <mat-icon>check</mat-icon>
-            </button>
-
+            </button> -->
         </div>
-
     </div>
     <!-- / CENTER -->
-
 </div>

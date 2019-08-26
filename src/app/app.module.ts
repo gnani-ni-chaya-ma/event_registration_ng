@@ -17,7 +17,9 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { GncEventsModule } from './main/gnc-events/gnc-events.module';
+import { DataService } from './main/gnc-events/services/dataService.service';
 
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -37,7 +39,7 @@ const appRoutes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes, {useHash: true}),
 
         TranslateModule.forRoot(),
 
@@ -54,11 +56,13 @@ const appRoutes: Routes = [
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
+        NgxSpinnerModule,
 
         // App modules
         LayoutModule,
         GncEventsModule
     ],
+    providers:[DataService],
     bootstrap   : [
         AppComponent
     ]
