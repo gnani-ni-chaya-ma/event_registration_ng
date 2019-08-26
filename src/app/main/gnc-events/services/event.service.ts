@@ -37,7 +37,7 @@ export class EventService {
       "participant": {
           "first_name": formDetails.firstName,
           "last_name": formDetails.lastName,
-          "date_of_birth": formDetails.birthday._i.year  + "-" + formDetails.birthday._i.month + "-" + formDetails.birthday._i.date,
+          "date_of_birth": formDetails.birthday._i.year  + "-" + (formDetails.birthday._i.month + 1) + "-" + formDetails.birthday._i.date,
           "mobile": formDetails.phone,
           "gender": 'male',
           "other_center": formDetails.other_center,
@@ -56,10 +56,10 @@ export class EventService {
       "goal_achievement": "",
       "role": formDetails.role,
       "registration_status": 0,
-      "skill": formDetails.itemList,
+      "skill": "",
       "event": this.dataService.event.id,
       "home_center": formDetails.ymhtLocationGroup.id,
-      "event_center": 1
+      "event_center": this.dataService.event.center
   }
 
     console.log(body);

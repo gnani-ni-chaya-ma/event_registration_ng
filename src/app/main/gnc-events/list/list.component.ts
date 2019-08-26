@@ -16,6 +16,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DataService } from "../services/dataService.service";
 import { MatSnackBar } from "@angular/material";
 
+import { NgxSpinnerService } from "ngx-spinner";
+
 @Component({
     selector: "app-list",
     templateUrl: "./list.component.html",
@@ -41,7 +43,8 @@ export class ListComponent implements OnInit {
         private eventService: EventService,
         private router: Router,
         private dataService: DataService,
-        private _snackBar: MatSnackBar
+        private _snackBar: MatSnackBar,
+        private spinner: NgxSpinnerService
     ) {
         this.animationDirection = "none";
         this.currentStep = 0;
@@ -107,14 +110,17 @@ export class ListComponent implements OnInit {
             this.router.navigate(["/categories"]);
             return;
         }
+        this.spinner.show();
 
         await this.eventService
             .fetchEvents()
             .then(data => {
                 this.itemList = data;
+                this.spinner.hide();
             })
             .catch(err => {
-              this._snackBar.open("Some Error Occured " + err);
+                this.spinner.hide();
+                this._snackBar.open("Some Error Occured " + err);
             });
     }
 

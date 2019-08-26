@@ -19,6 +19,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { GncEventsModule } from './main/gnc-events/gnc-events.module';
 import { DataService } from './main/gnc-events/services/dataService.service';
 
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
+        NgxSpinnerModule,
 
         // App modules
         LayoutModule,

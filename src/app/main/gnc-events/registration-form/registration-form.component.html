@@ -35,7 +35,7 @@
         <mat-form-field class="mr-24" fxFlex appearance="outline">
           <mat-label>Date Of Birth</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">cake</mat-icon>
-          <input matInput [matDatepicker]="dp3" placeholder="DOB DD/MM/YYYY" readonly formControlName="birthday"
+          <input matInput [matDatepicker]="dp3" [min]="minDate" [max]="maxDate" placeholder="DOB DD/MM/YYYY" readonly formControlName="birthday"
             required (click)="dp3.open()">
           <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
           <mat-datepicker #dp3></mat-datepicker>
@@ -44,7 +44,7 @@
       </div>
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="ageGreaterThan21">
         
-        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline">
+        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
           <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
           <input matInput  style="display: none" formControlName="role" >
           <mat-radio-group aria-label="Select an option" matInput formControlName="role" [required]='ageGreaterThan21'>

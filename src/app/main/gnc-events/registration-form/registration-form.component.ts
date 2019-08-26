@@ -12,6 +12,9 @@ import { Router } from "@angular/router";
 import { EventService } from "../services/event.service";
 import { MatAutocompleteSelectedEvent, MatSnackBar } from "@angular/material";
 
+import { NgxSpinnerService } from "ngx-spinner";
+
+
 export interface YmhtLocationGroup {
     letter: string;
     centers: any[];
@@ -36,6 +39,8 @@ export class RegistrationFormComponent implements OnInit {
     ageGreaterThan21: boolean = false;
     isOtherCenter: boolean = false;
     // isEventFuzion: boolean = false;
+    minDate = new Date(1950, 0, 1);
+    maxDate = new Date(2010, 0, 1);
     event: any;
     centers: any = [];
     centerGroups: YmhtLocationGroup[] = [];
@@ -130,7 +135,8 @@ export class RegistrationFormComponent implements OnInit {
         private dataService: DataService,
         private router: Router,
         private eventService: EventService,
-        private _snackBar: MatSnackBar
+        private _snackBar: MatSnackBar,
+        private spinner: NgxSpinnerService
     ) {
         this.eventForm = _formBuilder.group({
             firstName: ["", Validators.required],
@@ -190,8 +196,10 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     submitForm() {
+        this.spinner.show();
+
         let formData = this.eventForm.value;
-        let itemList: string = '';
+        let itemList: string = "";
         // if(this.selectedEventItems.length == 0){
         //     this._snackBar.open("Please Select Atleast one item from the List","Ok",{duration: 3000});
         //     return;
@@ -200,12 +208,14 @@ export class RegistrationFormComponent implements OnInit {
         //     this.selectedEventItems.forEach(item => {
         //         itemList = itemList  +  item.name + ', ';
         //     });
-        //     console.log(formData);    
+        //     console.log(formData);
         // }
         formData.itemList = itemList;
         let response = this.eventService.submitForm(formData);
         response
             .then(data => {
+                this.spinner.hide();
+
                 this._snackBar.open("Registration Successful", "Ok", {
                     duration: 3000,
                     horizontalPosition: "center",
@@ -258,12 +268,12 @@ export class RegistrationFormComponent implements OnInit {
     // itemChecked(index){
     //     let itemChecked = this.eventItems[index];
     //     let selectedItemIndex = this.selectedEventItems.indexOf(itemChecked);
-        
+
     //     if(selectedItemIndex == -1){
     //         this.selectedEventItems.push(itemChecked);
     //     }
     //     else{
-    //         this.selectedEventItems.splice(selectedItemIndex,1)     
+    //         this.selectedEventItems.splice(selectedItemIndex,1)
     //     }
     //     console.log(this.selectedEventItems);
     // }
