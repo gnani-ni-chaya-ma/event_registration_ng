@@ -14,7 +14,6 @@ import { MatAutocompleteSelectedEvent, MatSnackBar } from "@angular/material";
 
 import { NgxSpinnerService } from "ngx-spinner";
 
-
 export interface YmhtLocationGroup {
     letter: string;
     centers: any[];
@@ -44,7 +43,7 @@ export class RegistrationFormComponent implements OnInit {
     centers: any = [];
     centerGroups: YmhtLocationGroup[] = [];
     centerGroupOptions: Observable<YmhtLocationGroup[]>;
-   
+
     ngOnInit(): void {
         if (
             this.dataService.event == null ||
@@ -77,9 +76,8 @@ export class RegistrationFormComponent implements OnInit {
         for (var key in this.centers) {
             var center = this.centers[key];
 
-//TO PRE SET THE CENTER 
+            //TO PRE SET THE CENTER
 
-            
             var index = this.centerGroups.indexOf(
                 this.centerGroups.find(x => center.name.charAt(0) == x.letter)
             );
@@ -92,7 +90,12 @@ export class RegistrationFormComponent implements OnInit {
                 });
             }
         }
-        this.centerGroups.sort((a,b)=> a.letter>b.letter ? 1: -1);
+        this.centerGroups.sort((a, b) => (a.letter > b.letter ? 1 : -1));
+        this.centerGroups.forEach(centerGroup => {
+            console.log(centerGroup.centers);
+            
+            centerGroup.centers.sort((a, b) => (a.name > b.name ? 1 : -1));
+        });
         console.log(this.centerGroups);
     }
     private _filterGroup(value: string): YmhtLocationGroup[] {
@@ -148,7 +151,6 @@ export class RegistrationFormComponent implements OnInit {
             if (this._calculateAge(form) >= 21) {
                 this.ageGreaterThan21 = true;
                 this.eventForm.get("role").setValue("");
-               
             } else {
                 this.ageGreaterThan21 = false;
                 this.eventForm.get("role").setValue("participant");
@@ -229,5 +231,4 @@ export class RegistrationFormComponent implements OnInit {
         }
         this.eventForm.get("ymhtLocationGroup").setValue(center);
     }
-
 }
