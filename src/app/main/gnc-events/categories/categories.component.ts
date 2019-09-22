@@ -42,10 +42,11 @@ export class CategoriesComponent {
     }
 
     async fetchData(){
+      let categories;
       this.spinner.show();
       await this.eventService.fetchEventCategories().then(data=>{
         this.spinner.hide();
-        this.categoryList = data;
+        categories = data;
       }).catch(err=>{
         this.spinner.hide();
         this._snackBar.open("Some Error Occured " + err);
@@ -53,7 +54,11 @@ export class CategoriesComponent {
     
       
       
-
-      this.categoryList.splice(0,1);
+      
+      this.categoryList = categories.filter(category=>{
+        console.log(category.id, !(category.id === 1));
+        
+        return !(category.id === 1)
+      })
     }
   }
