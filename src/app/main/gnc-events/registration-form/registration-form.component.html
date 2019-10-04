@@ -55,6 +55,19 @@
         </mat-form-field>
       </div>
 
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="accomodationRequired">
+        
+        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
+          <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
+          <input matInput  style="display: none" formControlName="accomodation" >
+          <mat-radio-group aria-label="Select an option" matInput formControlName="accomodation" [required]='accomodationRequired'>
+            <mat-radio-button value="true">Yes &nbsp;</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
+          </mat-radio-group>
+          <mat-error>"Choose Accomodation Option"</mat-error>
+        </mat-form-field>
+      </div>
+
 
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">

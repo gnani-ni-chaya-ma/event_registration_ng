@@ -36,6 +36,7 @@ export const _filter = (opt: any[], value: any): any[] => {
 })
 export class RegistrationFormComponent implements OnInit {
     ageGreaterThan21: boolean = false;
+    accomodationRequired: boolean = false;
     isOtherCenter: boolean = false;
     minDate = new Date(1950, 0, 1);
     maxDate = new Date(2010, 0, 1);
@@ -55,6 +56,8 @@ export class RegistrationFormComponent implements OnInit {
 
         this.fetchCenters();
         this.event = this.dataService.event;
+
+        this.accomodationRequired = this.event.accommodation_provided;
 
         this.centerGroupOptions = this.eventForm
             .get("ymhtLocationGroup")!

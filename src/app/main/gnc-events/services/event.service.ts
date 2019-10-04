@@ -48,7 +48,7 @@ export class EventService {
           "mother_mobile": "",
           "center": formDetails.ymhtLocationGroup.id
       },
-      "accommodation": false,
+      "accommodation": formDetails.accomodation,
       "payment_status": false,
       "amount_paid": 0,
       "cashier": "",
