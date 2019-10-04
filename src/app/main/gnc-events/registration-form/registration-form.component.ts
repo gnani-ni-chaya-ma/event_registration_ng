@@ -46,6 +46,27 @@ export class RegistrationFormComponent implements OnInit {
     centerGroupOptions: Observable<YmhtLocationGroup[]>;
 
     ngOnInit(): void {
+
+        this.eventForm = this._formBuilder.group({
+            firstName: ["", Validators.required],
+            lastName: ["", Validators.required],
+            other_center: [""],
+            email: ["", [Validators.email]],
+            birthday: ["", Validators.required],
+            phone: [
+                "",
+                [
+                    Validators.required,
+                    Validators.minLength(10),
+                    Validators.maxLength(10),
+                    Validators.pattern("^[0-9]*$")
+                ]
+            ],
+            ymhtLocationGroup: ["", [Validators.required]],
+            role: ["participant", [Validators.required]],
+            accomodation: [""]
+        });
+
         if (
             this.dataService.event == null ||
             this.dataService.event == undefined
@@ -58,6 +79,11 @@ export class RegistrationFormComponent implements OnInit {
         this.event = this.dataService.event;
 
         this.accomodationRequired = this.event.accommodation_provided;
+
+        if(this.accomodationRequired) {
+            this.eventForm.get("accomodation").setValidators(Validators.required);
+            this.eventForm.get("accomodation").updateValueAndValidity();
+        }
 
         this.centerGroupOptions = this.eventForm
             .get("ymhtLocationGroup")!
@@ -122,24 +148,7 @@ export class RegistrationFormComponent implements OnInit {
         private _snackBar: MatSnackBar,
         private spinner: NgxSpinnerService
     ) {
-        this.eventForm = _formBuilder.group({
-            firstName: ["", Validators.required],
-            lastName: ["", Validators.required],
-            other_center: [""],
-            email: ["", [Validators.email]],
-            birthday: ["", Validators.required],
-            phone: [
-                "",
-                [
-                    Validators.required,
-                    Validators.minLength(10),
-                    Validators.maxLength(10),
-                    Validators.pattern("^[0-9]*$")
-                ]
-            ],
-            ymhtLocationGroup: ["", [Validators.required]],
-            role: ["participant", [Validators.required]]
-        });
+        
     }
 
     _calculateAge(birthday) {
