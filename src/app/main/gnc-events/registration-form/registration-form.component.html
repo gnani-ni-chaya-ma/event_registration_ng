@@ -1,0 +1,124 @@
+<div class="form-container">
+  <div class="page-layout blank p-24 formDiv" fusePerfectScrollbar fxLayoutAlign="center start">
+
+    <form class="myForm" [formGroup]="eventForm">
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="center center">
+        <mat-toolbar color="primary">
+          <span class="toolbar-heading">
+            <h1>GNC Registration Form</h1>
+          </span>
+        </mat-toolbar>
+      </div>
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="center center">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>First Name</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+          <input name="name" formControlName="firstName" placeholder="First Name" matInput required>
+          <mat-error>"Enter Valid First Name"</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Last Name</mat-label>
+
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">account_circle</mat-icon>
+          <input name="lastName" formControlName="lastName" placeholder="Last Name" matInput required>
+          <mat-error>"Enter Valid Last Name"</mat-error>
+
+        </mat-form-field>
+      </div>
+
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field class="mr-24" fxFlex appearance="outline">
+          <mat-label>Date Of Birth</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">cake</mat-icon>
+          <input matInput [matDatepicker]="dp3" [min]="minDate" [max]="maxDate" placeholder="DOB DD/MM/YYYY" readonly formControlName="birthday"
+            required (click)="dp3.open()">
+          <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+          <mat-datepicker #dp3></mat-datepicker>
+          <mat-error>"Enter Valid Birthday"</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="ageGreaterThan21">
+        
+        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
+          <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
+          <input matInput  style="display: none" formControlName="role" >
+          <mat-radio-group aria-label="Select an option" matInput formControlName="role" [required]='ageGreaterThan21'>
+            <mat-radio-button value="helper">Helper &nbsp;</mat-radio-button>
+            <mat-radio-button value="coordinator">Coordinator</mat-radio-button>
+          </mat-radio-group>
+          <mat-error>"Choose Valid Role"</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
+        <mat-label >Do you need Accommodation?</mat-label>
+      </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
+          <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
+
+          <input matInput  style="display: none" formControlName="accommodation" >
+          <mat-radio-group aria-label="Select an option" matInput formControlName="accommodation" required>
+            <mat-radio-button value="true">Yes &nbsp; &nbsp;</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
+          </mat-radio-group>
+          <mat-error>"Please choose: Do you need accommodation"</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Mobile Number</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">phone</mat-icon>
+          <input formControlName="phone" matInput placeholder="Phone number" required>
+          <mat-error>"Enter Valid 10 Digit Mobile Number"</mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">email</mat-icon>
+          <input name="email" formControlName="email" matInput type="email" placeholder="Email">
+          <mat-error>"Enter Valid Email Address"</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>YMHT Center</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
+          <input type="text" matInput placeholder="YMHT Center" formControlName="ymhtLocationGroup" required
+            [matAutocomplete]="autoGroup" (blur)="validateLocation($event)">
+          <mat-autocomplete #autoGroup="matAutocomplete" [displayWith]="displayFn"
+            >
+            <mat-optgroup *ngFor="let group of centerGroupOptions | async" [label]="group.letter">
+              <mat-option *ngFor="let center of group.centers" [value]="center">
+                {{center.name}}
+              </mat-option>
+            </mat-optgroup>
+          </mat-autocomplete>
+          <mat-error>"Enter Valid Location"</mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="isOtherCenter">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Other Location</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
+          <input name="other_center" formControlName="other_center" matInput  placeholder="Other Location" [required]='isOtherCenter'>
+          <mat-error>"Please Enter Your Center"</mat-error>
+        </mat-form-field>
+      </div>
+
+      <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()" [disabled]="!eventForm.valid"
+        >Submit</button>
+    </form>
+  </div>
+</div>
+
