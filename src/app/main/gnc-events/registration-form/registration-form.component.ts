@@ -92,11 +92,11 @@ export class RegistrationFormComponent implements OnInit {
         }
         this.centerGroups.sort((a, b) => (a.letter > b.letter ? 1 : -1));
         this.centerGroups.forEach(centerGroup => {
-            console.log(centerGroup.centers);
+            // console.log(centerGroup.centers);
             
             centerGroup.centers.sort((a, b) => (a.name > b.name ? 1 : -1));
         });
-        console.log(this.centerGroups);
+        // console.log(this.centerGroups);
     }
     private _filterGroup(value: string): YmhtLocationGroup[] {
         if (value) {
@@ -135,7 +135,8 @@ export class RegistrationFormComponent implements OnInit {
                 ]
             ],
             ymhtLocationGroup: ["", [Validators.required]],
-            role: ["participant", [Validators.required]]
+            role: ["participant", [Validators.required]],
+            accommodation: ["", [Validators.required]]
         });
     }
 
@@ -189,7 +190,7 @@ export class RegistrationFormComponent implements OnInit {
                     horizontalPosition: "center",
                     verticalPosition: "top"
                 });
-                console.log(data);
+                // console.log(data);
                 this.dataService.registeredUserInfo = data;
                 this.router.navigate(["registration-info"]);
             })
@@ -203,18 +204,18 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     displayFn(center): string {
-        console.log("--->>>", center);
+        // console.log("--->>>", center);
         return center ? center.name : "";
     }
 
     selected(center) {
-        console.log(center);
+        // console.log(center);
     }
 
     validateLocation(event) {
         //console.log(value.relatedTarget);
         if (event.relatedTarget) {
-            console.log(event.relatedTarget.className);
+            // console.log(event.relatedTarget.className);
             if (event.relatedTarget.className.includes("mat-option")) {
                 return;
             }

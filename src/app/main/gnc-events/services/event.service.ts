@@ -48,7 +48,7 @@ export class EventService {
           "mother_mobile": "",
           "center": formDetails.ymhtLocationGroup.id
       },
-      "accommodation": false,
+      "accommodation": formDetails.accommodation==="true",
       "payment_status": false,
       "amount_paid": 0,
       "cashier": "",
@@ -62,7 +62,7 @@ export class EventService {
       "event_center": this.dataService.event.center
   }
 
-    console.log(body);
+    // console.log(body);
     
     let response = await this.http.post(environment.apiUrl +'/events/event-participants/',JSON.stringify(body),{headers: {'content-type':'application/json'}});
     return response.toPromise();
