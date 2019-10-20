@@ -50,18 +50,18 @@ export const fuseAnimations = [
                 ], {optional: true}))
     ]),
 
-    trigger('fadeInOut', [
-        state('0', style({
-            display: 'none',
-            opacity: 0
-        })),
-        state('1', style({
-            display: 'block',
-            opacity: 1
-        })),
-        transition('1 => 0', animate('300ms ease-out')),
-        transition('0 => 1', animate('300ms ease-in'))
-    ]),
+    // trigger('fadeInOut', [
+    //     state('0', style({
+    //         display: 'none',
+    //         opacity: 0
+    //     })),
+    //     state('1', style({
+    //         display: 'block',
+    //         opacity: 1
+    //     })),
+    //     transition('1 => 0', animate('300ms ease-out')),
+    //     transition('0 => 1', animate('300ms ease-in'))
+    // ]),
 
     trigger('slideInOut', [
         state('0', style({
@@ -176,66 +176,66 @@ export const fuseAnimations = [
         transition('* => void', animate('300ms'))
     ]),
 
-    trigger('expandCollapse', [
-        state('void', style({
-            height: '0px'
-        })),
-        state('*', style({
-            height: '*'
-        })),
-        transition('void => *', animate('300ms ease-out')),
-        transition('* => void', animate('300ms ease-in'))
-    ]),
+    // trigger('expandCollapse', [
+    //     state('void', style({
+    //         height: '0px'
+    //     })),
+    //     state('*', style({
+    //         height: '*'
+    //     })),
+    //     transition('void => *', animate('300ms ease-out')),
+    //     transition('* => void', animate('300ms ease-in'))
+    // ]),
 
     // -----------------------------------------------------------------------------------------------------
     // @ Router animations
     // -----------------------------------------------------------------------------------------------------
     
-    trigger('routerTransitionLeft', [
+    // trigger('routerTransitionLeft', [
 
-        transition('* => *', [
-            query('content > :enter, content > :leave', [
-                style({
-                    position: 'absolute',
-                    top     : 0,
-                    bottom  : 0,
-                    left    : 0,
-                    right   : 0
-                })
-            ], {optional: true}),
-            query('content > :enter', [
-                style({
-                    transform: 'translateX(100%)',
-                    opacity  : 0
-                })
-            ], {optional: true}),
-            sequence([
-                group([
-                    query('content > :leave', [
-                        style({
-                            transform: 'translateX(0)',
-                            opacity  : 1
-                        }),
-                        animate('600ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-                            style({
-                                transform: 'translateX(-100%)',
-                                opacity  : 0
-                            }))
-                    ], {optional: true}),
-                    query('content > :enter', [
-                        style({transform: 'translateX(100%)'}),
-                        animate('600ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-                            style({
-                                transform: 'translateX(0%)',
-                                opacity  : 1
-                            }))
-                    ], {optional: true})
-                ]),
-                query('content > :leave', animateChild(), {optional: true}),
-                query('content > :enter', animateChild(), {optional: true})
-            ])
-        ])
-    ]),
+    //     transition('* => *', [
+    //         query('content > :enter, content > :leave', [
+    //             style({
+    //                 position: 'absolute',
+    //                 top     : 0,
+    //                 bottom  : 0,
+    //                 left    : 0,
+    //                 right   : 0
+    //             })
+    //         ], {optional: true}),
+    //         query('content > :enter', [
+    //             style({
+    //                 transform: 'translateX(100%)',
+    //                 opacity  : 0
+    //             })
+    //         ], {optional: true}),
+    //         sequence([
+    //             group([
+    //                 query('content > :leave', [
+    //                     style({
+    //                         transform: 'translateX(0)',
+    //                         opacity  : 1
+    //                     }),
+    //                     animate('600ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+    //                         style({
+    //                             transform: 'translateX(-100%)',
+    //                             opacity  : 0
+    //                         }))
+    //                 ], {optional: true}),
+    //                 query('content > :enter', [
+    //                     style({transform: 'translateX(100%)'}),
+    //                     animate('600ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+    //                         style({
+    //                             transform: 'translateX(0%)',
+    //                             opacity  : 1
+    //                         }))
+    //                 ], {optional: true})
+    //             ]),
+    //             query('content > :leave', animateChild(), {optional: true}),
+    //             query('content > :enter', animateChild(), {optional: true})
+    //         ])
+    //     ])
+    // ]),
 
     trigger('routerTransitionRight', [
 
