@@ -1,33 +1,22 @@
 <div id="academy-course" class="page-layout simple left-sidebar inner-scroll">
     <!-- SIDEBAR -->
-    <fuse-sidebar
-        class="sidebar"
-        name="academy-course-left-sidebar-1"
-        position="center"
-        lockedOpen="gt-md"
-    >
-        <!-- SIDEBAR CONTENT -->
+    <!-- SIDEBAR CONTENT -->
+    <!-- <fuse-sidebar class="sidebar" name="academy-course-left-sidebar-1" position="center" lockedOpen="gt-md">
         <div class="content" fusePerfectScrollbar>
             <div class="label-header">Location's</div>
 
             <div class="steps">
-                <!-- <div class="step" *ngFor="let step of course.steps; let i = index; let last = last; let first = first" -->
-                <div
-                    class="step"
-                    *ngFor="
+                <div class="step" *ngFor="
                         let step of itemList;
                         let i = index;
                         let last = last;
                         let first = first
-                    "
-                    (click)="gotoStep(i)"
-                    [ngClass]="{
+                    " (click)="gotoStep(i)" [ngClass]="{
                         current: currentStep === i,
                         completed: currentStep > i,
                         last: last,
                         first: first
-                    }"
-                >
+                    }">
                     <div class="index">
                         <span>{{ i + 1 }}</span>
                     </div>
@@ -35,36 +24,22 @@
                 </div>
             </div>
         </div>
-        <!-- / SIDEBAR CONTENT -->
-    </fuse-sidebar>
+    </fuse-sidebar> -->
+    <!-- / SIDEBAR CONTENT -->
     <!-- / SIDEBAR -->
 
     <!-- CENTER -->
     <div class="center">
         <!-- HEADER -->
-        <div
-            class="header  p-24"
-            fxLayout="row"
-            fxLayoutAlign="space-between center"
-        >
-            <button
-                mat-icon-button
-                class="sidebar-toggle mr-16"
-                fxHide.gt-md
-                style="color: white"
-                (click)="toggleSidebar('academy-course-left-sidebar-1')"
-            >
+        <div class="header  p-24" fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-icon-button class="sidebar-toggle mr-16" fxHide.gt-md style="color: white"
+                (click)="toggleSidebar('academy-course-left-sidebar-1')">
                 <mat-icon>menu</mat-icon>
             </button>
             <div>
                 <h2 class="details-header-title">Events Details</h2>
             </div>
-            <button
-                mat-icon-button
-                class="mr-16"
-                [routerLink]="'/categories'"
-                style="color: white"
-            >
+            <button mat-icon-button class="mr-16" [routerLink]="'/categories'" style="color: white">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
@@ -73,29 +48,11 @@
         <!-- CONTENT -->
         <div id="course-content" class="content">
             <ng-container *ngFor="let step of itemList; let i = index">
-                <div
-                    class="course-step"
-                    fusePerfectScrollbar
-                    *ngIf="currentStep === i"
-                    [@slideIn]="animationDirection"
-                >
-                    <div
-                        fxLayoutAlign="center center"
-                        fxLayout="column"
-                        (click)="eventClicked(itemList[i])"
-                        id="course-step-content"
-                        class="course-step-content"
-                    >
-                        <div
-                            fxLayout="row"
-                            fxLayoutAlign="end start"
-                            style="width: 100%"
-                        >
-                            <button
-                                mat-raised-button
-                                class="register-button"
-                                (click)="eventClicked(itemList[i])"
-                            >
+                <div class="course-step" fusePerfectScrollbar *ngIf="currentStep === i" [@slideIn]="animationDirection">
+                    <div fxLayoutAlign="center center" fxLayout="column" (click)="eventClicked(itemList[i])"
+                        id="course-step-content" class="course-step-content">
+                        <div fxLayout="row" fxLayoutAlign="end start" style="width: 100%">
+                            <button mat-raised-button class="register-button" (click)="eventClicked(itemList[i])">
                                 Register
                             </button>
                         </div>
@@ -131,41 +88,47 @@
                     </div>
                     <!-- <div id="course-step-content" class="course-step-content" [innerHTML]="step.content"></div> -->
                 </div>
+
+
             </ng-container>
+        </div>
+        <div class="bottom_area">
+
+            <div class="bottom_list" *ngFor="let item of itemList; let i = index;" (click)="gotoStep(i)">
+                <div class="fuse-widget-front mat-white-bg mat-elevation-z8 cursor-pointer m-12"
+                    (click)="navigateToEvent(event)">
+                    <div class="p-12" fxLayout="column" fxLayoutAlign="center center" style="text-align: center">
+                        <div class="h4 font-weight-400">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom_list" *ngFor="let item of itemList; let i = index;" (click)="gotoStep(i)">
+                <div class="fuse-widget-front mat-white-bg mat-elevation-z8 cursor-pointer m-12"
+                    (click)="navigateToEvent(event)">
+                    <div class="p-12" fxLayout="column" fxLayoutAlign="center center" style="text-align: center">
+                        <div class="h4 font-weight-400">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom_list" *ngFor="let item of itemList; let i = index;" (click)="gotoStep(i)">
+                <div class="fuse-widget-front mat-white-bg mat-elevation-z8 cursor-pointer m-12"
+                    (click)="navigateToEvent(event)">
+                    <div class="p-12" fxLayout="column" fxLayoutAlign="center center" style="text-align: center">
+                        <div class="h4 font-weight-400">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- / CONTENT -->
 
-        <div class="step-navigation">
-            <button
-                mat-fab
-                class="previous mat-accent white-fg"
-                (click)="gotoPreviousStep()"
-                [disabled]="currentStep === 0"
-                [fxHide]="currentStep === 0"
-            >
-                <mat-icon>chevron_left</mat-icon>
-            </button>
 
-            <button
-                mat-fab
-                class="next mat-accent white-fg"
-                (click)="gotoNextStep()"
-                [disabled]="currentStep === itemList?.length - 1"
-                [fxHide]="currentStep === itemList?.length - 1"
-            >
-                <mat-icon>chevron_right</mat-icon>
-            </button>
-
-            <!-- <button
-                mat-fab
-                class="done mat-green-600-bg"
-                routerLink="/apps/academy/courses"
-                [disabled]="currentStep !== itemList?.length - 1"
-                [fxShow]="currentStep === itemList?.length - 1"
-            >
-                <mat-icon>check</mat-icon>
-            </button> -->
-        </div>
     </div>
     <!-- / CENTER -->
 </div>
