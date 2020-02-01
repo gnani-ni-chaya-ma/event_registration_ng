@@ -5,10 +5,9 @@
 export const environment = {
     production: false,
     hmr       : false,
-    // apiUrl: 'http://127.0.0.1:8000'
-    // apiUrl: 'http://104.211.88.75:3000'
-    apiUrl: 'http://13.232.198.253:3000'
-
+    // apiUrl: 'http://127.0.0.1:8000',
+    // apiUrl: 'http://104.211.88.75:3000',
+    apiUrl    : 'http://13.232.198.253:3000', //Divyang Server
 };
 
 
