@@ -68,36 +68,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <b>Gender :</b>
-                            </td>
-                            <td>
-                                <p>{{ userData.participant.gender }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Date of Birth :</b>
-                            </td>
-                            <td>
-                                <p>
-                                    {{
-                                        userData.participant.date_of_birth
-                                            | date: "d MMM yyyy"
-                                    }}
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Role: </b>
-                            </td>
-                            <td>
-                                <p>{{ userData.role }}</p>
-                            </td>
-                        </tr>
-
-                        <tr>
                             <td colspan="2">
                                 <mat-divider fxHide.md="true"></mat-divider>
                             </td>
@@ -115,7 +85,7 @@
                                 <p>{{ eventCenter.fees }}</p>
                             </td>
                         </tr>
-                        <tr *ngIf="eventCenter">
+                        <tr *ngIf="lateFee">
                             <td>
                                 <b>Late Fees </b>
                             </td>
@@ -180,27 +150,6 @@
                                 <p>{{ userData.participant.mobile }}</p>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <b>Gender :</b>
-                            </td>
-                            <td>
-                                <p>{{ userData.participant.gender }}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Date of Birth :</b>
-                            </td>
-                            <td>
-                                <p>
-                                    {{
-                                        userData.participant.date_of_birth
-                                            | date: "d MMM yyyy"
-                                    }}
-                                </p>
-                            </td>
-                        </tr>
                        
 
                         <tr>
@@ -221,7 +170,7 @@
                                 <p>{{ eventCenter.fees }}</p>
                             </td>
                         </tr>
-                        <tr *ngIf="eventCenter">
+                        <tr *ngIf="lateFee">
                             <td>
                                 <b>Late Fees </b>
                             </td>

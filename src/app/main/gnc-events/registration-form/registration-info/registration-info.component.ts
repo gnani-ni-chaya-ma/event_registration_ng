@@ -3,6 +3,7 @@ import { DataService } from "../../services/dataService.service";
 import { EventService } from "../../services/event.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
+import * as moment from "moment";
 
 @Component({
     selector: "app-registration-info",
@@ -12,6 +13,7 @@ import { MatSnackBar } from "@angular/material";
 export class RegistrationInfoComponent implements OnInit {
     userData: any;
     eventCenter: any;
+    lateFee : boolean;
 
     constructor(
         private dataService: DataService,
@@ -36,9 +38,11 @@ export class RegistrationInfoComponent implements OnInit {
     fetchEvent() {
         this.eventService
             .fetchEvent(this.userData.event)
-            .then(data => {
+            .then((data : any) => {
                 console.log(data);
+                this.lateFee = moment(data.last_date_of_registration) < moment()
                 this.eventCenter = data;
+                debugger
             })
             .catch(err => {
                 this._snackBar.open("Some Error Occured");

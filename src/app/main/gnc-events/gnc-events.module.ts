@@ -39,6 +39,7 @@ import {
     MatRadioModule
 } from "@angular/material";
 import { RegistrationInfoComponent } from "./registration-form/registration-info/registration-info.component";
+import { EventDetailsComponent } from "./event-details/event-details.component";
 
 const routes = [
     {
@@ -55,6 +56,10 @@ const routes = [
         component: ListComponent
     },
     {
+        path: "event-details",
+        component: EventDetailsComponent
+    },
+    {
         path: "registration-form",
         component: RegistrationFormComponent
     },
@@ -68,6 +73,7 @@ const routes = [
     declarations: [
         RegistrationFormComponent,
         ListComponent,
+        EventDetailsComponent,
         CategoriesComponent,
         RegistrationInfoComponent
     ],

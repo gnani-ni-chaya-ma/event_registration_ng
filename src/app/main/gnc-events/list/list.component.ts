@@ -54,54 +54,6 @@ export class ListComponent implements OnInit {
         this.fetchData();
     }
 
-    gotoStep(step): void {
-        // Decide the animation direction
-        this.animationDirection = this.currentStep < step ? "left" : "right";
-
-        // Run change detection so the change
-        // in the animation direction registered
-        this._changeDetectorRef.detectChanges();
-
-        // Set the current step
-        this.currentStep = step;
-    }
-
-    gotoNextStep(): void {
-        if (this.currentStep === this.itemList.length - 1) {
-            return;
-        }
-
-        // Set the animation direction
-        this.animationDirection = "left";
-
-        // Run change detection so the change
-        // in the animation direction registered
-        this._changeDetectorRef.detectChanges();
-
-        // Increase the current step
-        this.currentStep++;
-    }
-
-    gotoPreviousStep(): void {
-        if (this.currentStep === 0) {
-            return;
-        }
-
-        // Set the animation direction
-        this.animationDirection = "right";
-
-        // Run change detection so the change
-        // in the animation direction registered
-        this._changeDetectorRef.detectChanges();
-
-        // Decrease the current step
-        this.currentStep--;
-    }
-
-    toggleSidebar(name): void {
-        this._fuseSidebarService.getSidebar(name).toggleOpen();
-    }
-
     async fetchData() {
         if (
             this.dataService.category == null ||
@@ -114,8 +66,9 @@ export class ListComponent implements OnInit {
 
         await this.eventService
             .fetchEvents()
-            .then(data => {
-                this.itemList = data;
+            .then((data : any) => {
+                this.itemList = data
+                
                 this.spinner.hide();
             })
             .catch(err => {
@@ -126,6 +79,7 @@ export class ListComponent implements OnInit {
 
     eventClicked(event: any) {
         this.dataService.event = event;
-        this.router.navigate(["registration-form"]);
+        
+        this.router.navigate(["event-details"]);
     }
 }
