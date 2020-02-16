@@ -8,7 +8,7 @@ import {
 import { Observable } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 import { DataService } from "../services/dataService.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { EventService } from "../services/event.service";
 import { MatAutocompleteSelectedEvent, MatSnackBar } from "@angular/material";
 
@@ -63,8 +63,12 @@ export class RegistrationFormComponent implements OnInit {
         private router: Router,
         private eventService: EventService,
         private _snackBar: MatSnackBar,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private _activatedRoute: ActivatedRoute
     ) {
+
+        this.fetchUrlEvent();
+
         this.eventForm = _formBuilder.group({
             firstName: ["", Validators.required],
             lastName: ["", Validators.required],
@@ -87,7 +91,8 @@ export class RegistrationFormComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
+        await this.fetchUrlEvent()
         if (
             this.dataService.event == null ||
             this.dataService.event == undefined
@@ -114,6 +119,16 @@ export class RegistrationFormComponent implements OnInit {
         console.log("HERE");
 
 
+    }
+
+    async fetchUrlEvent(){
+        let urlEventId  = this._activatedRoute.snapshot.paramMap.get("eventId");
+
+        if(urlEventId){
+           await this.eventService.fetchEvent(parseInt(urlEventId)).then(eventData=> {
+                this.dataService.event = eventData;
+            })
+        }
     }
 
      fetchCenters() {
