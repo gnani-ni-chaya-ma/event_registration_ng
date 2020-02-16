@@ -62,15 +62,27 @@ const routes = [
     },
     {
         path: "event-details",
-        component: EventDetailsComponent
+        component: EventDetailsComponent,
+        resolve: { items: DataResolver }
+
     },
     {
         path: "event-group",
-        component: EventGroupDetailComponent
+        component: EventGroupDetailComponent,
+        resolve: { items: DataResolver }
+
     },
     {
         path: "registration-form",
-        component: RegistrationFormComponent
+        component: RegistrationFormComponent,
+        resolve: { items: DataResolver }
+
+    },
+    {
+        path: "registration-form/:eventId",
+        component: RegistrationFormComponent,
+        resolve: { items: DataResolver }
+
     },
     {
         path: "registration-info",

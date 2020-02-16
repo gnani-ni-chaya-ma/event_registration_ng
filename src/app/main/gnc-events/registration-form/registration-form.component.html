@@ -62,23 +62,26 @@
           <mat-error>"Choose Valid Role"</mat-error>
         </mat-form-field>
       </div>
-      <div *ngIf="event.accommodation_provided">
-        <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
-          <mat-label>Utaro ?</mat-label>
-        </div>
-        <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
-          <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
-            <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
+      <div *ngIf="event">
+        <div *ngIf="event.accommodation_provided">
+          <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
+            <mat-label>Utaro ?</mat-label>
+          </div>
+          <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
+              <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
 
-            <input matInput style="display: none" formControlName="accommodation">
-            <mat-radio-group aria-label="Select an option" matInput formControlName="accommodation" required>
-              <mat-radio-button value="true">Yes &nbsp; &nbsp;</mat-radio-button>
-              <mat-radio-button value="false">No</mat-radio-button>
-            </mat-radio-group>
-            <mat-error>"Please choose: Do you need accommodation (Utaro)"</mat-error>
-          </mat-form-field>
+              <input matInput style="display: none" formControlName="accommodation">
+              <mat-radio-group aria-label="Select an option" matInput formControlName="accommodation" required>
+                <mat-radio-button value="true">Yes &nbsp; &nbsp;</mat-radio-button>
+                <mat-radio-button value="false">No</mat-radio-button>
+              </mat-radio-group>
+              <mat-error>"Please choose: Do you need accommodation (Utaro)"</mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
+
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Mobile Number</mat-label>
