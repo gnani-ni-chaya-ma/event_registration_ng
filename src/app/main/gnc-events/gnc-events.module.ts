@@ -40,7 +40,8 @@ import {
 } from "@angular/material";
 import { RegistrationInfoComponent } from "./registration-form/registration-info/registration-info.component";
 import { EventDetailsComponent } from "./event-details/event-details.component";
-import {DataResolver} from '../../resolver/data.resolver' ;
+import {DataResolver} from '../../resolver/data.resolver';
+import { EventGroupDetailComponent } from './event-group-detail/event-group-detail.component' ;
 
 const routes = [
     {
@@ -63,6 +64,10 @@ const routes = [
         component: EventDetailsComponent
     },
     {
+        path: "event-group",
+        component: EventGroupDetailComponent
+    },
+    {
         path: "registration-form",
         component: RegistrationFormComponent
     },
@@ -78,7 +83,8 @@ const routes = [
         ListComponent,
         EventDetailsComponent,
         CategoriesComponent,
-        RegistrationInfoComponent
+        RegistrationInfoComponent,
+        EventGroupDetailComponent
     ],
     imports: [
         RouterModule.forChild(routes),

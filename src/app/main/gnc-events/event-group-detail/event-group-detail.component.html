@@ -1,0 +1,25 @@
+<div id="course-content" class="content mainContainer">
+
+  <div class="fuse-card indigo card-style" style="background-color: #363a44; color: white;">
+
+      <div class="p-16 ">
+          <div class="h1">List of {{eventGroup.parent.name}} Events</div>
+      </div>
+
+  </div>
+
+
+  <ng-container *ngFor="let step of eventList; let i = index">
+      <div (click)="eventClicked(step)" class="fuse-card indigo card-style">
+
+          <div class="p-16 " >
+              <div class="h1">{{step.name}}</div>
+              <div class="h4 secondary-text">{{step.start_date | date: "d MMM"}} - {{step.end_date | date: "d MMM"}}</div>
+          </div>
+
+      </div>
+  </ng-container>
+</div>
+
+
+

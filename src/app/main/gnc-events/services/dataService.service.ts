@@ -10,6 +10,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
   category: any;
   event: any;
+  eventGroup: any;
   registeredUserInfo: any;
 
   allCenters;

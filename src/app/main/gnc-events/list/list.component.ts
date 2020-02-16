@@ -27,7 +27,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class ListComponent implements OnInit {
     animationDirection: "left" | "right" | "none";
-    itemList: any;
+    eventList: any;
 
     courseStepContent: any;
     currentStep: number;
@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
     categoryName: string;
 
     allCenters;
+    groupedEvents = [];
 
     @ViewChildren(FusePerfectScrollbarDirective)
     fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;
@@ -66,15 +67,14 @@ export class ListComponent implements OnInit {
         }
         this.spinner.show();
 
-        this.allCenters = this.dataService.getAllCenters();
-        console.log(this.allCenters);
-        
+
+
 
         await this.eventService
             .fetchEvents()
-            .then((data : any) => {
-                this.itemList = data
-                
+            .then((data: any) => {
+                this.eventList = data
+
                 this.spinner.hide();
             })
             .catch(err => {
@@ -82,11 +82,51 @@ export class ListComponent implements OnInit {
                 this._snackBar.open("Some Error Occured " + err);
             });
 
+        this.formatEvents();
+        // console.log(this.eventList);
+
+
+    }
+
+
+    formatEvents() {
+        this.allCenters = this.dataService.getAllCenters().slice();
+        // console.log(this.allCenters);
+        for (let i = 0; i < this.eventList.length; i++) {
+            let event = this.eventList[i];
+            let centerId = event.center; // Get event Center id
+            let center = this.allCenters.filter(center => center.id === centerId)[0]; // Get event Center object from id
+
+            if (center.parent) {
+                let centerIdInGroup = this.groupedEvents.findIndex(eventGroup => eventGroup.centerId === center.parent);
+                let parentCenter = this.allCenters.filter(tempCenter => { 
+                   return tempCenter.id === center.parent;
+                
+                })[0]; // Get parent Center
+
+                if (centerIdInGroup == -1) {
+                    this.groupedEvents.push({ "centerId": center.parent, "events": [event], "parent": parentCenter });
+                }
+                else {
+                    this.groupedEvents[centerIdInGroup]["events"].push({ ...event });
+                }
+                this.eventList.splice(i, 1);
+                // console.log(this.eventList);
+                i--;
+            }
+        }
+        console.log(this.groupedEvents);
     }
 
     eventClicked(event: any) {
         this.dataService.event = event;
-        
+
         this.router.navigate(["event-details"]);
+    }
+
+    eventGroupClicked(eventgroup){
+        this.dataService.eventGroup = eventgroup;
+        this.router.navigate(["event-group"]);
+
     }
 }
