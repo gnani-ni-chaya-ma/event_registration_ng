@@ -43,6 +43,7 @@ import { EventDetailsComponent } from "./event-details/event-details.component";
 import {DataResolver} from '../../resolver/data.resolver';
 import { EventGroupDetailComponent } from './event-group-detail/event-group-detail.component' ;
 import { EventCategoryComponent } from './event-category/event-category.component';
+import { CategoriesNewComponent } from './categories-new/categories-new.component';
 
 const routes = [
     {
@@ -52,9 +53,8 @@ const routes = [
     },
     {
         path: "categories",
-        component: CategoriesComponent,
+        component: CategoriesNewComponent,
         resolve: { items: DataResolver }
-
     },
     {
         path: "list",
@@ -86,7 +86,8 @@ const routes = [
         CategoriesComponent,
         RegistrationInfoComponent,
         EventGroupDetailComponent,
-        EventCategoryComponent
+        EventCategoryComponent,
+        CategoriesNewComponent
     ],
     imports: [
         RouterModule.forChild(routes),

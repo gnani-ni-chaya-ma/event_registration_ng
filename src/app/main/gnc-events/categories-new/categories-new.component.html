@@ -1,0 +1,26 @@
+<div id="categories" class="page-layout blank grey-100-bg m-4">
+
+    <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+
+        <div [@animate]="{value:'*',params:{y:'100%'}}" fxLayout="column" fxFlex="100">
+            <div class="fuse-widget-front mat-white-bg mat-elevation-z0 border border-radius-8">
+
+                <div class="h3 line-height-32 py-4 pl-12 my-4">Categories</div>
+
+                <mat-divider></mat-divider>
+
+                <div id="all-categories" fxLayout="row wrap" fxLayoutGap="10px grid" class="mb-8 p-4">
+
+                    <span *ngFor="let category of categoryList;">
+                        <event-category [category-name]="category.category" [category-id]="category.id">
+                        </event-category>
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
