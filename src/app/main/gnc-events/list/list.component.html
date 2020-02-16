@@ -11,7 +11,7 @@
     <ng-container *ngFor="let step of itemList; let i = index">
         <div (click)="eventClicked(step)" class="fuse-card indigo card-style">
 
-            <div class="p-16 ">
+            <div class="p-16 " >
                 <div class="h1">{{step.name}}</div>
                 <div class="h4 secondary-text">{{step.start_date | date: "d MMM"}} - {{step.end_date | date: "d MMM"}}</div>
             </div>
@@ -19,3 +19,6 @@
         </div>
     </ng-container>
 </div>
+
+
+

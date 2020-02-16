@@ -20,6 +20,7 @@ import { GncEventsModule } from './main/gnc-events/gnc-events.module';
 import { DataService } from './main/gnc-events/services/dataService.service';
 
 import { NgxSpinnerModule } from "ngx-spinner";
+import { DataResolver } from './resolver/data.resolver';
 
 
 
@@ -62,7 +63,7 @@ const appRoutes: Routes = [
         LayoutModule,
         GncEventsModule
     ],
-    providers:[DataService],
+    providers:[DataService, DataResolver],
     bootstrap   : [
         AppComponent
     ]

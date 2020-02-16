@@ -27,9 +27,15 @@ export class EventService {
     return this.http.get(environment.apiUrl + '/events/event-categories/').toPromise();
   }
 
-  async fetchCenters(){
-    return this.http.get(environment.apiUrl + '/base/centers?is_displayed=true').toPromise();
-  }
+ 
+  //  fetchActiveCenters(){
+  //   return this.http.get(environment.apiUrl + '/base/centers?is_displayed=true').toPromise();
+  // }
+
+  //  fetchAllCenters(){
+  //   return this.http.get(environment.apiUrl + '/base/centers/').toPromise();
+  // }
+
 
   async submitForm(formDetails: any){
     

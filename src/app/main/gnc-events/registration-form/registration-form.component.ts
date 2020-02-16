@@ -19,13 +19,25 @@ export interface YmhtLocationGroup {
     centers: any[];
 }
 
+const otherReplacement = "Didn't find your city?";
+
+
 export const _filter = (opt: any[], value: any): any[] => {
     const filterValue = value.name
         ? value.name.toLowerCase()
         : value.toLowerCase();
 
     return opt.filter(
-        item => item.name.toLowerCase().indexOf(filterValue) === 0
+
+        (item) => { 
+
+            // To always display Other center`
+            if(item.name.toLowerCase() === otherReplacement.toLowerCase()){
+                return true;
+            } 
+            return item.name.toLowerCase().indexOf(filterValue) === 0
+        
+        }
     );
 };
 
@@ -35,6 +47,7 @@ export const _filter = (opt: any[], value: any): any[] => {
     styleUrls: ["./registration-form.component.scss"]
 })
 export class RegistrationFormComponent implements OnInit {
+
     ageGreaterThan21: boolean = false;
     isOtherCenter: boolean = false;
     minDate = new Date(1950, 0, 1);
@@ -44,73 +57,6 @@ export class RegistrationFormComponent implements OnInit {
     centerGroups: YmhtLocationGroup[] = [];
     centerGroupOptions: Observable<YmhtLocationGroup[]>;
 
-    ngOnInit(): void {
-        if (
-            this.dataService.event == null ||
-            this.dataService.event == undefined
-        ) {
-            this.router.navigate(["/categories"]);
-            return;
-        }
-
-        this.fetchCenters();
-        this.event = this.dataService.event;
-
-        this.centerGroupOptions = this.eventForm
-            .get("ymhtLocationGroup")!
-            .valueChanges.pipe(
-                startWith(""),
-                map(value => this._filterGroup(value))
-            );
-        this.setAgeListner();
-        this.serCenterListner();
-    }
-
-    async fetchCenters() {
-        // console.log(this.dataService.event);
-        try {
-            this.centers = await this.eventService.fetchCenters();
-        } catch (e) {
-            this._snackBar.open("Some Error Occured");
-        }
-        for (var key in this.centers) {
-            var center = this.centers[key];
-
-            //TO PRE SET THE CENTER
-
-            var index = this.centerGroups.indexOf(
-                this.centerGroups.find(x => center.name.charAt(0) == x.letter)
-            );
-            if (index != -1) {
-                this.centerGroups[index].centers.push(center);
-            } else {
-                this.centerGroups.push({
-                    letter: center.name.charAt(0),
-                    centers: [center]
-                });
-            }
-        }
-        this.centerGroups.sort((a, b) => (a.letter > b.letter ? 1 : -1));
-        this.centerGroups.forEach(centerGroup => {
-            // console.log(centerGroup.centers);
-            
-            centerGroup.centers.sort((a, b) => (a.name > b.name ? 1 : -1));
-        });
-        // console.log(this.centerGroups);
-    }
-    private _filterGroup(value: string): YmhtLocationGroup[] {
-        if (value) {
-            return this.centerGroups
-                .map(group => ({
-                    letter: group.letter,
-                    centers: _filter(group.centers, value)
-                }))
-                .filter(group => group.centers.length > 0);
-        }
-        return this.centerGroups;
-    }
-
-    eventForm: FormGroup;
     constructor(
         private _formBuilder: FormBuilder,
         private dataService: DataService,
@@ -138,7 +84,95 @@ export class RegistrationFormComponent implements OnInit {
             role: ["participant", [Validators.required]],
             accommodation: ["", [Validators.required]]
         });
+
     }
+
+    ngOnInit(): void {
+        if (
+            this.dataService.event == null ||
+            this.dataService.event == undefined
+        ) {
+            this.router.navigate(["/categories"]);
+            return;
+        }
+
+        this.fetchCenters();
+        this.event = this.dataService.event;
+        console.log(this.event);
+
+        if (!this.event.accommodation_provided) {
+            this.eventForm.get("accommodation").setValue(false);
+        }
+        this.centerGroupOptions = this.eventForm
+            .get("ymhtLocationGroup")!
+            .valueChanges.pipe(
+                startWith(""),
+                map(value => this._filterGroup(value))
+            );
+        this.setAgeListner();
+        this.serCenterListner();
+        console.log("HERE");
+
+
+    }
+
+     fetchCenters() {
+        // console.log(this.dataService.event);
+        try {
+            this.centers = this.dataService.getActiveCenters();
+        } catch (e) {
+            this._snackBar.open("Some Error Occured");
+        }
+        for (var key in this.centers) {
+            var center = this.centers[key];
+            if(center.name === "Other"){
+                center.name = otherReplacement
+                this.centerGroups.push({
+                    letter: " ",
+                    centers: [center]
+                })
+                continue;
+            }
+
+            var index = this.centerGroups.indexOf(
+                this.centerGroups.find(x => center.name.charAt(0) == x.letter)
+            );
+            if (index != -1) {
+                this.centerGroups[index].centers.push(center);
+            } else {
+                this.centerGroups.push({
+                    letter: center.name.charAt(0),
+                    centers: [center]
+                });
+            }
+        }
+        this.centerGroups.sort((a, b) => (a.letter > b.letter ? 1 : -1));
+        this.centerGroups.forEach(centerGroup => {
+            // console.log(centerGroup.centers);
+
+            centerGroup.centers.sort((a, b) => (a.name > b.name ? 1 : -1));
+        });
+        
+        // To prefill the center
+        // this.eventForm.patchValue({
+        //     ymhtLocationGroup: this.centerIdToCenter(this.event.center)
+        // });
+        // console.log(this.centerGroups);
+    }
+    private _filterGroup(value: string): YmhtLocationGroup[] {
+        if (value) {
+            return this.centerGroups
+                .map(group => ({
+                    letter: group.letter,
+                    centers: _filter(group.centers, value)
+                }))
+                .filter(group => group.centers.length > 0);
+        }
+        return this.centerGroups;
+    }
+
+    eventForm: FormGroup;
+
 
     _calculateAge(birthday) {
         // birthday is a date
@@ -165,7 +199,7 @@ export class RegistrationFormComponent implements OnInit {
             .get("ymhtLocationGroup")
             .valueChanges.subscribe(center => {
                 if (center) {
-                    if (center.name === "Other") {
+                    if (center.name === otherReplacement) {
                         this.isOtherCenter = true;
                     } else {
                         this.isOtherCenter = null;
@@ -211,6 +245,22 @@ export class RegistrationFormComponent implements OnInit {
     selected(center) {
         // console.log(center);
     }
+    centerIdToCenter(centerId) {
+        // console.log("HERE 2");
+
+        console.log("CenterList", this.centers);
+        // console.log();
+        let cen = this.centers.filter(center => center.id === centerId)[0];
+        console.log(
+            "ymhtLocatioGroup:: ",
+            this.eventForm.get("ymhtLocationGroup")
+        );
+        // console.log("center ::", cen);
+
+        this.eventForm.get("ymhtLocationGroup").setValue(cen);
+        return cen;
+    }
+
 
     validateLocation(event) {
         //console.log(value.relatedTarget);

@@ -34,6 +34,8 @@ export class ListComponent implements OnInit {
 
     categoryName: string;
 
+    allCenters;
+
     @ViewChildren(FusePerfectScrollbarDirective)
     fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;
 
@@ -64,6 +66,10 @@ export class ListComponent implements OnInit {
         }
         this.spinner.show();
 
+        this.allCenters = this.dataService.getAllCenters();
+        console.log(this.allCenters);
+        
+
         await this.eventService
             .fetchEvents()
             .then((data : any) => {
@@ -75,6 +81,7 @@ export class ListComponent implements OnInit {
                 this.spinner.hide();
                 this._snackBar.open("Some Error Occured " + err);
             });
+
     }
 
     eventClicked(event: any) {

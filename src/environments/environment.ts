@@ -7,7 +7,9 @@ export const environment = {
     hmr       : false,
     // apiUrl: 'http://127.0.0.1:8000',
     // apiUrl: 'http://104.211.88.75:3000',
-    apiUrl    : 'http://13.232.198.253:3000', //Divyang Server
+    // apiUrl: 'http://youthapi.dbf.ooo',
+    apiUrl: 'http://youthapi.dbf.ooo:3000',
+    // apiUrl    : 'http://13.232.198.253:3000', //Divyang Server
 };
 
 

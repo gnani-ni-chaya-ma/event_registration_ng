@@ -42,7 +42,6 @@ export class RegistrationInfoComponent implements OnInit {
                 console.log(data);
                 this.lateFee = moment(data.last_date_of_registration) < moment()
                 this.eventCenter = data;
-                debugger
             })
             .catch(err => {
                 this._snackBar.open("Some Error Occured");

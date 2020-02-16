@@ -40,6 +40,7 @@ import {
 } from "@angular/material";
 import { RegistrationInfoComponent } from "./registration-form/registration-info/registration-info.component";
 import { EventDetailsComponent } from "./event-details/event-details.component";
+import {DataResolver} from '../../resolver/data.resolver' ;
 
 const routes = [
     {
@@ -49,7 +50,9 @@ const routes = [
     },
     {
         path: "categories",
-        component: CategoriesComponent
+        component: CategoriesComponent,
+        resolve: { items: DataResolver }
+
     },
     {
         path: "list",
@@ -112,6 +115,6 @@ const routes = [
         FuseSidebarModule,
         CommonModule
     ],
-    providers: []
+    providers: [DataResolver]
 })
 export class GncEventsModule {}
