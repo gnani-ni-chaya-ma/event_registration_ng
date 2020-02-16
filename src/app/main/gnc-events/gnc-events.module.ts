@@ -42,6 +42,7 @@ import { RegistrationInfoComponent } from "./registration-form/registration-info
 import { EventDetailsComponent } from "./event-details/event-details.component";
 import {DataResolver} from '../../resolver/data.resolver';
 import { EventGroupDetailComponent } from './event-group-detail/event-group-detail.component' ;
+import { EventCategoryComponent } from './event-category/event-category.component';
 
 const routes = [
     {
@@ -84,7 +85,8 @@ const routes = [
         EventDetailsComponent,
         CategoriesComponent,
         RegistrationInfoComponent,
-        EventGroupDetailComponent
+        EventGroupDetailComponent,
+        EventCategoryComponent
     ],
     imports: [
         RouterModule.forChild(routes),
