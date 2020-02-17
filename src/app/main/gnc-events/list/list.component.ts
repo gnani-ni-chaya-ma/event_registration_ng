@@ -114,6 +114,9 @@ export class ListComponent implements OnInit {
                 // console.log(this.eventList);
                 i--;
             }
+            else{
+                this.eventList[i]["centerName"] = center.name;
+            }
         }
         console.log(this.groupedEvents);
     }

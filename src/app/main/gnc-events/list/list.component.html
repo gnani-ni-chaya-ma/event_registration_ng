@@ -1,36 +1,39 @@
-<div id="course-content" class="content mainContainer">
+<div id="categories" class="page-layout blank grey-100-bg m-4">
+    <div fxLayout="column" fxLayoutAlign="start" fxLayoutAlign.gt-sm="start start">
+    
+        <div class="fuse-widget-front mat-amber-400-bg mat-elevation-z0 border border-radius-8 img-container text-center">
+            <img class="imgg" src="../../../../assets/SC2020.jpg" />
+        </div>
+    
+      
+    
+    </div>
 
-    <div class="fuse-card indigo card-style" style="background-color: #363a44; color: white;">
+    <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
 
-        <div class="p-16 ">
-            <div class="h1">List of Events</div>
+        <div [@animate]="{value:'*',params:{y:'100%'}}" fxLayout="column" fxFlex="100">
+            <div class="fuse-widget-front mat-white-bg mat-elevation-z0 border border-radius-8">
+
+
+                <mat-divider></mat-divider>
+
+                <div id="all-categories" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="15px grid" class="mb-8 p-4">
+
+                    <span *ngFor="let eventGroup of groupedEvents;" (click)="eventGroupClicked(eventGroup)">
+                        <event-category [category-name]="eventGroup.parent.name">
+                        </event-category>
+                    </span>
+                    
+                    <span *ngFor="let event of eventList;" (click)="eventClicked(event)">
+                        <event-category [category-name]="event.centerName">
+                        </event-category>
+                    </span>
+
+                </div>
+
+            </div>
         </div>
 
     </div>
 
-
-    <ng-container *ngFor="let eventGroup of groupedEvents; let i = index">
-        <div (click)="eventGroupClicked(eventGroup)" class="fuse-card indigo card-style">
-
-            <div class="p-16 " >
-                <div class="h1">{{eventGroup.parent.name}}</div>
-            </div>
-
-        </div>
-    </ng-container>
-
-
-    <ng-container *ngFor="let step of eventList; let i = index">
-        <div (click)="eventClicked(step)" class="fuse-card indigo card-style">
-
-            <div class="p-16 " >
-                <div class="h1">{{step.name}}</div>
-                <div class="h4 secondary-text">{{step.start_date | date: "d MMM"}} - {{step.end_date | date: "d MMM"}}</div>
-            </div>
-
-        </div>
-    </ng-container>
 </div>
-
-
-

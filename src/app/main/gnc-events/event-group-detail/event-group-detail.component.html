@@ -1,4 +1,4 @@
-<div id="course-content" class="content mainContainer">
+<!-- <div id="course-content" class="content mainContainer">
 
   <div class="fuse-card indigo card-style" style="background-color: #363a44; color: white;">
 
@@ -21,5 +21,42 @@
   </ng-container>
 </div>
 
+ -->
 
 
+
+ <div id="categories" class="page-layout blank grey-100-bg m-4">
+    <div fxLayout="column" fxLayoutAlign="start" fxLayoutAlign.gt-sm="start start">
+    
+        <div class="fuse-widget-front mat-amber-400-bg mat-elevation-z0 border border-radius-8 img-container text-center">
+            <img class="imgg" src="../../../../assets/SC2020.jpg" />
+        </div>
+    
+      
+    
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+
+        <div [@animate]="{value:'*',params:{y:'100%'}}" fxLayout="column" fxFlex="100">
+            <div class="fuse-widget-front mat-white-bg mat-elevation-z0 border border-radius-8">
+
+
+                <mat-divider></mat-divider>
+
+                <div id="all-categories" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="15px grid" class="mb-8 p-4">
+
+
+                    <span *ngFor="let event of eventList;" (click)="eventClicked(event)">
+                        <event-category [category-name]="event.name">
+                        </event-category>
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

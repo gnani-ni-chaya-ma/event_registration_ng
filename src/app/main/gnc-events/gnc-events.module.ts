@@ -53,7 +53,7 @@ const routes = [
     },
     {
         path: "categories",
-        component: CategoriesNewComponent,
+        component: CategoriesComponent,
         resolve: { items: DataResolver }
     },
     {
