@@ -48,7 +48,7 @@
 
 
                     <span *ngFor="let event of eventList;" (click)="eventClicked(event)">
-                        <event-category [category-name]="event.name">
+                        <event-category [category-name]="event.name" [backColor]="event.backColor" [event] = "event">
                         </event-category>
                     </span>
 

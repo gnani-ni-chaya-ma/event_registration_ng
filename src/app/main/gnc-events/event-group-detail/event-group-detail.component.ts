@@ -36,7 +36,7 @@ export class EventGroupDetailComponent implements OnInit {
   eventClicked(event: any) {
     this._dataService.event = event;
 
-    this.router.navigate(["event-details"]);
+    this.router.navigate(["registration-form/" + event.id]);
   }
 
 }

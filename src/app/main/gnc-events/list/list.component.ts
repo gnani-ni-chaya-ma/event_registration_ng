@@ -37,6 +37,8 @@ export class ListComponent implements OnInit {
     allCenters;
     groupedEvents = [];
 
+    colorList = ["#e7b2a5", "#f1935c", "#ffe75e", "#beebe9", "#fffdf9","#ffe3ed","#ecdfc8","#ff9d9d","#eab0d9","#feb377","#deddfa","#eef9bf","#a7e9af","#b0eacd","#bac7a7"];
+
     @ViewChildren(FusePerfectScrollbarDirective)
     fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;
 
@@ -58,14 +60,22 @@ export class ListComponent implements OnInit {
     }
 
     async fetchData() {
-        if (
-            this.dataService.category == null ||
-            this.dataService.category == ""
-        ) {
-            this.router.navigate(["/categories"]);
-            return;
-        }
+        // if (
+        //     this.dataService.category == null ||
+        //     this.dataService.category == ""
+        // ) {
+
+        //     // HARDCODED SUMMERCAMP
+
+        //     this.dataService.category = {  "id":4 , "category": "Summer Camp" }
+        //     // this.router.navigate(["/categories"]);
+        //     // return;
+        // }
+
+        this.dataService.category = {  "id":4 , "category": "Summer Camp" }
+
         this.spinner.show();
+console.log("HERERERER");
 
 
 
@@ -88,11 +98,18 @@ export class ListComponent implements OnInit {
 
     }
 
+    getRandomColor(){
+        return this.colorList[Math.floor(Math.random() * this.colorList.length)];
+    }
 
     formatEvents() {
         this.allCenters = this.dataService.getAllCenters().slice();
         // console.log(this.allCenters);
         for (let i = 0; i < this.eventList.length; i++) {
+
+            // ALLOCATE RANDOM COLOUR
+            this.eventList[i]["backColor"] = this.getRandomColor();
+
             let event = this.eventList[i];
             let centerId = event.center; // Get event Center id
             let center = this.allCenters.filter(center => center.id === centerId)[0]; // Get event Center object from id
@@ -105,7 +122,7 @@ export class ListComponent implements OnInit {
                 })[0]; // Get parent Center
 
                 if (centerIdInGroup == -1) {
-                    this.groupedEvents.push({ "centerId": center.parent, "events": [event], "parent": parentCenter });
+                    this.groupedEvents.push({ "centerId": center.parent, "events": [event], "parent": parentCenter, "backColor": this.getRandomColor() });
                 }
                 else {
                     this.groupedEvents[centerIdInGroup]["events"].push({ ...event });
@@ -124,7 +141,7 @@ export class ListComponent implements OnInit {
     eventClicked(event: any) {
         this.dataService.event = event;
 
-        this.router.navigate(["event-details"]);
+        this.router.navigate(["registration-form/" + event.id]);
     }
 
     eventGroupClicked(eventgroup){

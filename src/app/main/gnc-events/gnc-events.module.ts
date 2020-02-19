@@ -48,17 +48,19 @@ import { CategoriesNewComponent } from './categories-new/categories-new.componen
 const routes = [
     {
         path: "",
-        redirectTo: "categories",
+        redirectTo: "list",
         pathMatch: "full"
     },
     {
         path: "categories",
-        component: CategoriesComponent,
+        redirectTo: "list",
         resolve: { items: DataResolver }
     },
     {
         path: "list",
-        component: ListComponent
+        component: ListComponent,
+        resolve: { items: DataResolver }
+
     },
     {
         path: "event-details",

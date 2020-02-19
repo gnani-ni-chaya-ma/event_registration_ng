@@ -16,6 +16,8 @@ export class EventService {
 
   async fetchEvents() {
     var eventList: any;
+    console.log("IN SERVICE");
+    
     return this.http.get(environment.apiUrl + "/events/?category=" + this.dataService.category.id + "&active=true").toPromise();
 
   }

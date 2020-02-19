@@ -131,4 +131,26 @@
         [disabled]="!eventForm.valid">Submit</button>
     </form>
   </div>
+
+
+  <mat-card>
+
+    <div class="card-items">
+      <div>
+        <b> Event Date:</b>
+        {{ event?.start_date | date: "d MMM yyyy" }} -
+        {{ event?.end_date | date: "d MMM yyyy" }}
+      </div>
+      <div><b> Fees: </b>{{ event?.fees }}</div>
+     
+     
+      <div>
+        <b> Venue: </b>{{ event?.venue.address_1 }},
+        {{ event?.venue.address_2 }},
+        {{ event?.venue.city }}
+      </div>
+      <!-- <div> <b> Contact: </b>{{event.contact}}</div> -->
+    </div>
+  </mat-card>
+
 </div>

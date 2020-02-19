@@ -19,7 +19,7 @@ export class DataService {
 
 
   async fetchMasterData() {
-    this.fetchAllCenters();
+   await this.fetchAllCenters();
   }
 
 

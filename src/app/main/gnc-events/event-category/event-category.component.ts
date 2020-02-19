@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EventCategoryComponent implements OnInit {
 
   @Input('category-name') categoryName: string;
+  @Input('backColor') backColor: string;
+  @Input('event') event: any;
 
   constructor() { }
 

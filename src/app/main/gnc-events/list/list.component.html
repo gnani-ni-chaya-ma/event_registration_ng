@@ -20,12 +20,12 @@
                 <div id="all-categories" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="15px grid" class="mb-8 p-4">
 
                     <span *ngFor="let eventGroup of groupedEvents;" (click)="eventGroupClicked(eventGroup)">
-                        <event-category [category-name]="eventGroup.parent.name">
+                        <event-category [category-name]="eventGroup.parent.name" [backColor]="eventGroup.backColor" >
                         </event-category>
                     </span>
                     
                     <span *ngFor="let event of eventList;" (click)="eventClicked(event)">
-                        <event-category [category-name]="event.centerName">
+                        <event-category [category-name]="event.centerName"  [backColor]="event.backColor" [event] = "event">
                         </event-category>
                     </span>
 
