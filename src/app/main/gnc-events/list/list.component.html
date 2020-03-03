@@ -25,7 +25,9 @@
                     </span>
                     
                     <span *ngFor="let event of eventList;" (click)="eventClicked(event)">
-                        <event-category [category-name]="event.centerName"  [backColor]="event.backColor" [event] = "event">
+                        <event-category *ngIf="event.id == 114" [category-name]="event.name"  [backColor]="event.backColor" [event] = "event">
+                        </event-category>
+                        <event-category *ngIf="event.id != 114" [category-name]="event.centerName"  [backColor]="event.backColor" [event] = "event">
                         </event-category>
                     </span>
 
