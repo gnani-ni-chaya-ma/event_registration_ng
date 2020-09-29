@@ -29,14 +29,14 @@ export const _filter = (opt: any[], value: any): any[] => {
 
     return opt.filter(
 
-        (item) => { 
+        (item) => {
 
             // To always display Other center`
-            if(item.name.toLowerCase() === otherReplacement.toLowerCase()){
+            if (item.name.toLowerCase() === otherReplacement.toLowerCase()) {
                 return true;
-            } 
+            }
             return item.name.toLowerCase().indexOf(filterValue) === 0
-        
+
         }
     );
 };
@@ -56,6 +56,11 @@ export class RegistrationFormComponent implements OnInit {
     centers: any = [];
     centerGroups: YmhtLocationGroup[] = [];
     centerGroupOptions: Observable<YmhtLocationGroup[]>;
+
+    urlEventId: string;
+
+    // For asking question
+    want_to_ask_ques: boolean = false;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -80,13 +85,32 @@ export class RegistrationFormComponent implements OnInit {
                 [
                     Validators.required,
                     Validators.minLength(10),
-                    Validators.maxLength(10),
+                    Validators.maxLength(15),
                     Validators.pattern("^[0-9]*$")
                 ]
             ],
             ymhtLocationGroup: ["", [Validators.required]],
             role: ["participant", [Validators.required]],
-            accommodation: ["", [Validators.required]]
+            accommodation: ["", [Validators.required]],
+            // NEW FIELDS
+            age_text: [
+                "",
+                [
+                    Validators.required,
+                    Validators.min(17),
+                    Validators.max(120),
+                    Validators.pattern("^[0-9]*$")
+                ]
+            ],
+            language: ["Gujarati", [Validators.required]]
+            // wapp_number: ["", [
+            //     Validators.required,
+            //     Validators.minLength(10),
+            //     Validators.maxLength(10),
+            //     Validators.pattern("^[0-9]*$")
+            // ]],
+            // ask_question: ["", [Validators.required]],
+            // ques_text: [" ", Validators.required]
         });
 
     }
@@ -116,22 +140,21 @@ export class RegistrationFormComponent implements OnInit {
             );
         this.setAgeListner();
         this.serCenterListner();
-        console.log("HERE");
 
 
     }
 
-    async fetchUrlEvent(){
-        let urlEventId  = this._activatedRoute.snapshot.paramMap.get("eventId");
+    async fetchUrlEvent() {
+        this.urlEventId = this._activatedRoute.snapshot.paramMap.get("eventId");
 
-        if(urlEventId){
-           await this.eventService.fetchEvent(parseInt(urlEventId)).then(eventData=> {
+        if (this.urlEventId) {
+            await this.eventService.fetchEvent(parseInt(this.urlEventId)).then(eventData => {
                 this.dataService.event = eventData;
             })
         }
     }
 
-     fetchCenters() {
+    fetchCenters() {
         // console.log(this.dataService.event);
         try {
             this.centers = this.dataService.getActiveCenters();
@@ -140,7 +163,7 @@ export class RegistrationFormComponent implements OnInit {
         }
         for (var key in this.centers) {
             var center = this.centers[key];
-            if(center.name === "Other"){
+            if (center.name === "Other") {
                 center.name = otherReplacement
                 this.centerGroups.push({
                     letter: " ",
@@ -167,7 +190,7 @@ export class RegistrationFormComponent implements OnInit {
 
             centerGroup.centers.sort((a, b) => (a.name > b.name ? 1 : -1));
         });
-        
+
         // To prefill the center
         // this.eventForm.patchValue({
         //     ymhtLocationGroup: this.centerIdToCenter(this.event.center)
@@ -197,16 +220,36 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     setAgeListner() {
-        this.eventForm.get("birthday").valueChanges.subscribe(form => {
-            if (this._calculateAge(form) >= 21) {
-                this.ageGreaterThan21 = true;
-                this.eventForm.get("role").setValue("");
-            } else {
-                this.ageGreaterThan21 = false;
-                this.eventForm.get("role").setValue("participant");
-                // this.eventForm.get('role').setValidators(null);
-            }
-        });
+        
+        if (this.urlEventId !== "115") {
+            this.eventForm.get("birthday").valueChanges.subscribe(form => {
+                if (this._calculateAge(form) >= 21) {
+                    this.ageGreaterThan21 = true;
+                    this.eventForm.get("role").setValue("");
+                } else {
+                    this.ageGreaterThan21 = false;
+                    this.eventForm.get("role").setValue("participant");
+                    // this.eventForm.get('role').setValidators(null);
+                }
+            });
+        }
+        else {
+            console.log("HEHEHEre");
+            
+            this.eventForm.get("birthday").setValue(new Date("1970-01-01"));
+            this.eventForm.get("age_text").valueChanges.subscribe(age => {
+                console.log(age,"here");
+                
+                if (age > 21) {
+                    this.ageGreaterThan21 = true;
+                    this.eventForm.get("role").setValue("");
+                } else {
+                    this.ageGreaterThan21 = false;
+                    this.eventForm.get("role").setValue("participant");
+                    // this.eventForm.get('role').setValidators(null);
+                }
+            });
+        }
     }
 
     serCenterListner() {
@@ -229,6 +272,9 @@ export class RegistrationFormComponent implements OnInit {
         let formData = this.eventForm.value;
         let itemList: string = "";
         formData.itemList = itemList;
+        formData.skill = this.getNewParamsString(formData);
+        console.log("JSON STRING", formData);
+
         let response = this.eventService.submitForm(formData);
         response
             .then(data => {
@@ -296,5 +342,32 @@ export class RegistrationFormComponent implements OnInit {
             //console.log(center);
         }
         this.eventForm.get("ymhtLocationGroup").setValue(center);
+    }
+
+
+    copyToWhatsappNumber(event) {
+        // this.eventForm.get("wapp_number").setValue(event.target.value);
+    }
+    ask_question_value_chg(event) {
+        console.log("value change", event.value);
+        if (event.value === 'true') {
+            this.eventForm.get("ques_text").setValue("");
+            this.want_to_ask_ques = true;
+        }
+        else {
+            this.eventForm.get("ques_text").setValue(" ");
+            this.want_to_ask_ques = null;
+        }
+
+    }
+
+    getNewParamsString(formdata) {
+        let temp = {};
+        temp["age_text"] = formdata.age_text;
+        temp["language"] = formdata.language;
+        // temp["wapp_number"] = formdata.wapp_number;
+        // temp["ask_question"] = formdata.ask_question;
+        // temp["ques_text"] = formdata.ques_text;
+        return JSON.stringify(temp);
     }
 }

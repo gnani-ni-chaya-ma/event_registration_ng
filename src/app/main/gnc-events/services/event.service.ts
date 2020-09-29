@@ -45,12 +45,14 @@ export class EventService {
 
 
   async submitForm(formDetails: any) {
-
+    console.log("in service");
+    
     let body = {
       "participant": {
         "first_name": formDetails.firstName,
         "last_name": formDetails.lastName,
-        "date_of_birth": formDetails.birthday._i.year + "-" + (formDetails.birthday._i.month + 1) + "-" + formDetails.birthday._i.date,
+        // "date_of_birth": formDetails.birthday._i.year + "-" + (formDetails.birthday._i.month + 1) + "-" + formDetails.birthday._i.date,
+        "date_of_birth": "1970-01-01",
         "mobile": formDetails.phone,
         "gender": 'male',
         "other_center": formDetails.other_center,
@@ -69,13 +71,16 @@ export class EventService {
       "goal_achievement": "",
       "role": formDetails.role,
       "registration_status": 0,
-      "skill": "",
+      "skill": formDetails.skill,
       "event": this.dataService.event.id,
       "home_center": formDetails.ymhtLocationGroup.id,
       "event_center": this.dataService.event.center
     }
-
-    // console.log(body);
+let te = JSON.stringify(body);
+     console.log(JSON.stringify(body));
+   let ts = JSON.parse(te);
+    console.log(ts, JSON.parse(ts.skill));
+    
 
     let response = await this.http.post(environment.apiUrl + '/events/event-participants/', JSON.stringify(body), { headers: { 'content-type': 'application/json' } });
     return response.toPromise();

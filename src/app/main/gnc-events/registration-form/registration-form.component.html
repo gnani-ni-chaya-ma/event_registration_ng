@@ -38,7 +38,7 @@
       </div>
 
 
-
+      <!--       
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field class="mr-24" fxFlex appearance="outline">
           <mat-label>Date Of Birth</mat-label>
@@ -49,15 +49,27 @@
           <mat-datepicker #dp3></mat-datepicker>
           <mat-error>"Enter Valid Birthday"</mat-error>
         </mat-form-field>
+      </div> -->
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="center center">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Age</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">cake</mat-icon>
+          <input name="age_text" formControlName="age_text" placeholder="Age" matInput required>
+          <mat-error>"Enter Valid Age above 17 years old</mat-error>
+        </mat-form-field>
       </div>
+
+
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="ageGreaterThan21">
 
         <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
           <!-- the matInput with display:none makes the magic. It's ugly, I've warned you -->
           <input matInput style="display: none" formControlName="role">
           <mat-radio-group aria-label="Select an option" matInput formControlName="role" [required]='ageGreaterThan21'>
-            <mat-radio-button value="helper">Helper &nbsp;</mat-radio-button>
-            <mat-radio-button value="coordinator">Coordinator</mat-radio-button>
+            <mat-radio-button value="helper">Helper &nbsp;&nbsp;</mat-radio-button>
+            <mat-radio-button value="coordinator">Coordinator &nbsp;&nbsp;</mat-radio-button>
+            <mat-radio-button value="participant">Participant</mat-radio-button>
           </mat-radio-group>
           <mat-error>"Choose Valid Role"</mat-error>
         </mat-form-field>
@@ -84,13 +96,24 @@
 
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
-          <mat-label>Mobile Number</mat-label>
+          <mat-label>Whatsapp Number</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">phone</mat-icon>
-          <input formControlName="phone" matInput placeholder="Phone number" required>
-          <mat-error>"Enter Valid 10 Digit Mobile Number"</mat-error>
+          <input formControlName="phone" matInput placeholder="Whatsapp number" required
+            (blur)="copyToWhatsappNumber($event)">
+          <mat-error>"Enter Valid 10 to 15 Digit Mobile Number"</mat-error>
 
         </mat-form-field>
       </div>
+
+      <!-- <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Whatsapp Number</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">perm_phone_msg</mat-icon>
+          <input formControlName="wapp_number" matInput placeholder="Whatsapp number" required>
+          <mat-error>"Enter Valid 10 Digit Mobile Number"</mat-error>
+
+        </mat-form-field>
+      </div> -->
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Email</mat-label>
@@ -102,7 +125,7 @@
 
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
-          <mat-label>Hometown</mat-label>
+          <mat-label>Center</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
           <input type="text" matInput placeholder="YMHT Center" formControlName="ymhtLocationGroup" required
             [matAutocomplete]="autoGroup" (blur)="validateLocation($event)">
@@ -119,13 +142,55 @@
       </div>
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="isOtherCenter">
         <mat-form-field fxFlex appearance="outline">
-          <mat-label>Your Hometown</mat-label>
+          <mat-label>Your city name</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
-          <input name="other_center" formControlName="other_center" matInput placeholder="Other Location"
+          <input name="other_center" formControlName="other_center" matInput placeholder="Enter your city name"
             [required]='isOtherCenter'>
-          <mat-error>"Please Enter Your Hometown"</mat-error>
+          <mat-error>"Please Enter Your city"</mat-error>
         </mat-form-field>
       </div>
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Language</mat-label>
+          <mat-select formControlName="language" name="language">
+            <mat-option value="Gujarati">
+              Gujarati
+            </mat-option>
+            <mat-option value="Hindi">
+              Hindi
+            </mat-option>
+            <mat-option value="English">
+              English
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <!-- <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
+        <mat-label>Do you want to ask question to Pujyashree ?</mat-label>
+      </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
+
+          <input matInput style="display: none" formControlName="ask_question">
+          <mat-radio-group aria-label="Select an option" matInput formControlName="ask_question" required
+            (change)="ask_question_value_chg($event)">
+            <mat-radio-button value="true">Yes &nbsp; &nbsp;</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
+          </mat-radio-group>
+          <mat-error>"Please choose: Do you want to ask question to Pujyashree"</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="want_to_ask_ques">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Question</mat-label>
+          <textarea name="ques_text" formControlName="ques_text" matInput type="textarea" placeholder="Question" required></textarea>
+          <mat-error>"Enter Valid question"</mat-error>
+        </mat-form-field>
+      </div> -->
 
       <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()"
         [disabled]="!eventForm.valid">Submit</button>
@@ -141,7 +206,7 @@
       {{ event?.start_date | date: "d MMM yyyy" }} -
       {{ event?.end_date | date: "d MMM yyyy" }}
     </div>
-    <div><b> Fees: </b>{{ event?.fees }} 
+    <div><b> Fees: </b>{{ event?.fees }}
 
       <span *ngIf="event?.remarks.length != 0">({{event?.remarks}})</span>
 
