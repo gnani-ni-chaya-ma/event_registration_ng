@@ -102,13 +102,12 @@ export class RegistrationFormComponent implements OnInit {
                     Validators.pattern("^[0-9]*$")
                 ]
             ],
-            language: ["Gujarati", [Validators.required]]
-            // wapp_number: ["", [
-            //     Validators.required,
-            //     Validators.minLength(10),
-            //     Validators.maxLength(10),
-            //     Validators.pattern("^[0-9]*$")
-            // ]],
+            language: ["Gujarati", [Validators.required]],
+            wapp_number: ["", [
+                Validators.minLength(10),
+                Validators.maxLength(10),
+                Validators.pattern("^[0-9]*$")
+            ]],
             // ask_question: ["", [Validators.required]],
             // ques_text: [" ", Validators.required]
         });
@@ -365,7 +364,7 @@ export class RegistrationFormComponent implements OnInit {
         let temp = {};
         temp["age_text"] = formdata.age_text;
         temp["language"] = formdata.language;
-        // temp["wapp_number"] = formdata.wapp_number;
+        temp["wapp_number"] = formdata.wapp_number;
         // temp["ask_question"] = formdata.ask_question;
         // temp["ques_text"] = formdata.ques_text;
         return JSON.stringify(temp);
