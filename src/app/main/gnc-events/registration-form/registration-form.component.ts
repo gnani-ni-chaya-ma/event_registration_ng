@@ -220,7 +220,7 @@ export class RegistrationFormComponent implements OnInit {
 
     setAgeListner() {
         
-        if (this.urlEventId !== "115") {
+        if ((this.urlEventId !== "115") || (this.urlEventId !== "116")) {
             this.eventForm.get("birthday").valueChanges.subscribe(form => {
                 if (this._calculateAge(form) >= 21) {
                     this.ageGreaterThan21 = true;
