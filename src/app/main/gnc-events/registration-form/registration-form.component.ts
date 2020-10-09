@@ -97,7 +97,7 @@ export class RegistrationFormComponent implements OnInit {
                 "",
                 [
                     Validators.required,
-                    Validators.min(17),
+                    Validators.min(13),
                     Validators.max(120),
                     Validators.pattern("^[0-9]*$")
                 ]
@@ -233,11 +233,9 @@ export class RegistrationFormComponent implements OnInit {
             });
         }
         else {
-            console.log("HEHEHEre");
             
             this.eventForm.get("birthday").setValue(new Date("1970-01-01"));
             this.eventForm.get("age_text").valueChanges.subscribe(age => {
-                console.log(age,"here");
                 
                 if (age > 21) {
                     this.ageGreaterThan21 = true;
