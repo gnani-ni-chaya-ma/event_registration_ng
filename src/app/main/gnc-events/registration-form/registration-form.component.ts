@@ -58,6 +58,7 @@ export class RegistrationFormComponent implements OnInit {
     centerGroupOptions: Observable<YmhtLocationGroup[]>;
 
     urlEventId: string;
+    eventClosed: boolean = false;
 
     // For asking question
     want_to_ask_ques: boolean = false;
@@ -127,6 +128,9 @@ export class RegistrationFormComponent implements OnInit {
         this.fetchCenters();
         this.event = this.dataService.event;
         console.log(this.event);
+        if(!this.event.active){
+            this.router.navigate(["form-closed"])
+        }
 
         if (!this.event.accommodation_provided) {
             this.eventForm.get("accommodation").setValue(false);
@@ -219,7 +223,7 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     setAgeListner() {
-        
+
         if ((this.urlEventId !== "115") && (this.urlEventId !== "116")) {
             this.eventForm.get("birthday").valueChanges.subscribe(form => {
                 if (this._calculateAge(form) >= 21) {
@@ -233,10 +237,10 @@ export class RegistrationFormComponent implements OnInit {
             });
         }
         else {
-            
+
             this.eventForm.get("birthday").setValue(new Date("1970-01-01"));
             this.eventForm.get("age_text").valueChanges.subscribe(age => {
-                
+
                 if (age > 21) {
                     this.ageGreaterThan21 = true;
                     this.eventForm.get("role").setValue("");
@@ -270,7 +274,7 @@ export class RegistrationFormComponent implements OnInit {
         let itemList: string = "";
         formData.itemList = itemList;
         formData.skill = this.getNewParamsString(formData);
-        console.log("JSON STRING", formData);
+        // console.log("JSON STRING", formData);
 
         let response = this.eventService.submitForm(formData);
         response
@@ -282,9 +286,13 @@ export class RegistrationFormComponent implements OnInit {
                     horizontalPosition: "center",
                     verticalPosition: "top"
                 });
-                // console.log(data);
-                this.dataService.registeredUserInfo = data;
-                this.router.navigate(["registration-info"]);
+                let centerNames: number[] = [92, 96, 97, 98, 99];
+                if (centerNames.includes(+formData.ymhtLocationGroup.id)) {
+                    this.eventService.sendEmail(formData.email).catch(err=>{
+                        console.log(err);
+                    });
+                }
+                this.navigateToInfo(data);
             })
             .catch(e => {
                 this._snackBar.open("Erro in Registration" + e, "Ok", {
@@ -293,6 +301,11 @@ export class RegistrationFormComponent implements OnInit {
                     verticalPosition: "top"
                 });
             });
+    }
+
+    navigateToInfo(data) {
+        this.dataService.registeredUserInfo = data;
+        this.router.navigate(["registration-info"]);
     }
 
     displayFn(center): string {
@@ -346,7 +359,7 @@ export class RegistrationFormComponent implements OnInit {
         // this.eventForm.get("wapp_number").setValue(event.target.value);
     }
     ask_question_value_chg(event) {
-        console.log("value change", event.value);
+        // console.log("value change", event.value);
         if (event.value === 'true') {
             this.eventForm.get("ques_text").setValue("");
             this.want_to_ask_ques = true;

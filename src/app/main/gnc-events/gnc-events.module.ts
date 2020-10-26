@@ -44,6 +44,7 @@ import {DataResolver} from '../../resolver/data.resolver';
 import { EventGroupDetailComponent } from './event-group-detail/event-group-detail.component' ;
 import { EventCategoryComponent } from './event-category/event-category.component';
 import { CategoriesNewComponent } from './categories-new/categories-new.component';
+import { FormClosedComponent } from './registration-form/form-closed/form-closed.component';
 
 const routes = [
     {
@@ -89,6 +90,10 @@ const routes = [
     {
         path: "registration-info",
         component: RegistrationInfoComponent
+    },
+    {
+        path: "form-closed",
+        component: FormClosedComponent
     }
 ];
 
@@ -101,7 +106,8 @@ const routes = [
         RegistrationInfoComponent,
         EventGroupDetailComponent,
         EventCategoryComponent,
-        CategoriesNewComponent
+        CategoriesNewComponent,
+        FormClosedComponent
     ],
     imports: [
         RouterModule.forChild(routes),

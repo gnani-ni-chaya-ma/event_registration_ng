@@ -42,7 +42,10 @@ export class EventService {
   //  fetchAllCenters(){
   //   return this.http.get(environment.apiUrl + '/base/centers/').toPromise();
   // }
-
+  sendEmail(email){
+    let data = {"email": email} 
+    return this.http.post(`${environment.youthGateway}/send_email`, data).toPromise();
+  }
 
   async submitForm(formDetails: any) {
     console.log("in service");
