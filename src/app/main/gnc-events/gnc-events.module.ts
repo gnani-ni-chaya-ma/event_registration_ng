@@ -92,7 +92,7 @@ const routes = [
         component: RegistrationInfoComponent
     },
     {
-        path: "form-closed",
+        path: "registration-form/:eventId/form-closed",
         component: FormClosedComponent
     }
 ];

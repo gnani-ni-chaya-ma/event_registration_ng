@@ -170,8 +170,8 @@
       </div>
 
 
-      <!-- <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
-        <mat-label>Do you want to ask question to Pujyashree ?</mat-label>
+      <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
+        <mat-label>Do you want to ask question to Pujyashree Deepakbhai ?</mat-label>
       </div>
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
@@ -182,7 +182,7 @@
             <mat-radio-button value="true">Yes &nbsp; &nbsp;</mat-radio-button>
             <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
-          <mat-error>"Please choose: Do you want to ask question to Pujyashree"</mat-error>
+          <mat-error>"Please choose: Do you want to ask question to Pujyashree Deepakbhai"</mat-error>
         </mat-form-field>
       </div>
 
@@ -192,7 +192,7 @@
           <textarea name="ques_text" formControlName="ques_text" matInput type="textarea" placeholder="Question" required></textarea>
           <mat-error>"Enter Valid question"</mat-error>
         </mat-form-field>
-      </div> -->
+      </div>
 
       <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()"
         [disabled]="!eventForm.valid">Submit</button>
@@ -203,6 +203,14 @@
   <div class="fuse-widget-front mat-accent-900-bg mat-elevation-z0 border border-radius-8 px-20 py-8 mx-80 mb-60"
     style="margin: auto;margin-top: -36px;">
 
+    <div class="h4">
+      <b> Event name:</b>
+      {{event?.name}}
+    </div>
+    <div class="h4">
+      <b> Last date of Registration</b>
+      {{ event?.last_date_of_registration | date: "d MMM yyyy"}}
+    </div>
     <div class="h4">
       <b> Event Date:</b>
       {{ event?.start_date | date: "d MMM yyyy" }} -

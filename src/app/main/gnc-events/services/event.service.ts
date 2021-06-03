@@ -42,8 +42,12 @@ export class EventService {
   //  fetchAllCenters(){
   //   return this.http.get(environment.apiUrl + '/base/centers/').toPromise();
   // }
-  sendEmail(email){
-    let data = {"email": email} 
+  sendEmail(formData){
+    let data = {
+      "email": formData.participant.email,
+      "first_name": formData.participant.first_name,
+      "reg_id":formData.registration_no
+    } 
     return this.http.post(`${environment.youthGateway}/send_email`, data).toPromise();
   }
 

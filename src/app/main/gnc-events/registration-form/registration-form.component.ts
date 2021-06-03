@@ -35,7 +35,7 @@ export const _filter = (opt: any[], value: any): any[] => {
             if (item.name.toLowerCase() === otherReplacement.toLowerCase()) {
                 return true;
             }
-            return item.name.toLowerCase().indexOf(filterValue) === 0
+            return item.name.toLowerCase().includes(filterValue);
 
         }
     );
@@ -109,8 +109,8 @@ export class RegistrationFormComponent implements OnInit {
                 Validators.maxLength(10),
                 Validators.pattern("^[0-9]*$")
             ]],
-            // ask_question: ["", [Validators.required]],
-            // ques_text: [" ", Validators.required]
+            ask_question: ["", [Validators.required]],
+            ques_text: [" ", Validators.required]
         });
 
     }
@@ -128,8 +128,8 @@ export class RegistrationFormComponent implements OnInit {
         this.fetchCenters();
         this.event = this.dataService.event;
         console.log(this.event);
-        if(!this.event.active){
-            this.router.navigate(["form-closed"])
+        if (!this.event.active) {
+            this.router.navigate(["registration-form",this.urlEventId,"form-closed"])
         }
 
         if (!this.event.accommodation_provided) {
@@ -224,7 +224,7 @@ export class RegistrationFormComponent implements OnInit {
 
     setAgeListner() {
 
-        if ((this.urlEventId !== "115") && (this.urlEventId !== "116")) {
+        if ((this.urlEventId !== "115") && (this.urlEventId !== "116") && (this.urlEventId !== "118")) {
             this.eventForm.get("birthday").valueChanges.subscribe(form => {
                 if (this._calculateAge(form) >= 21) {
                     this.ageGreaterThan21 = true;
@@ -286,12 +286,13 @@ export class RegistrationFormComponent implements OnInit {
                     horizontalPosition: "center",
                     verticalPosition: "top"
                 });
-                let centerNames: number[] = [92, 96, 97, 98, 99];
-                if (centerNames.includes(+formData.ymhtLocationGroup.id)) {
-                    this.eventService.sendEmail(formData.email).catch(err=>{
+                // let centerNames: number[] = [92, 96, 97, 98, 99];
+                // if (centerNames.includes(+formData.ymhtLocationGroup.id)) {
+                if (formData.email != null && formData.email != "") {
+                    this.eventService.sendEmail(data).catch(err => {
                         console.log(err);
                     });
-                }
+                    }
                 this.navigateToInfo(data);
             })
             .catch(e => {
@@ -376,8 +377,8 @@ export class RegistrationFormComponent implements OnInit {
         temp["age_text"] = formdata.age_text;
         temp["language"] = formdata.language;
         temp["wapp_number"] = formdata.wapp_number;
-        // temp["ask_question"] = formdata.ask_question;
-        // temp["ques_text"] = formdata.ques_text;
+        temp["ask_question"] = formdata.ask_question;
+        temp["ques_text"] = formdata.ques_text;
         return JSON.stringify(temp);
     }
 }
