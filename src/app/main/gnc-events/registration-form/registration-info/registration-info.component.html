@@ -1,44 +1,17 @@
-<div
-    fxLayout="row"
-    fxLayoutAlign="start center"
-    fxLayoutGap="gappx"
-    style="width: 100%;"
-    *ngIf="userData"
->
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="gappx" style="width: 100%;" *ngIf="userData">
     <mat-card class="info-card mat-elevation-z8" style="padding: 0px">
-        <div
-            fxLayout="row"
-            fxLayoutAlign="start start"
-            fxLayoutGap="gappx"
-            class="title"
-        >
-            <mat-card-title style="text-align: center;"
-                >Submitted Form</mat-card-title
-            >
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx" class="title">
+            <mat-card-title style="text-align: center;">Submitted Form</mat-card-title>
         </div>
         <mat-divider></mat-divider>
         <mat-card-content class="detail-content">
             <div id="rcorners">
-                <ul>
-                    <li>
-                        Thank you {{ userData.participant.first_name }}
-                        {{ userData.participant.last_name }} for registering
-                    </li>
-                    <!-- <li>Step 1 of your registration is complete.</li>
-                    <li>
-                        Please contact local Ymht center coordinator for further
-                        details.
-                    </li> -->
-                </ul>
+                Thank you {{ userData.participant.first_name }}
+                {{ userData.participant.last_name }} for registering
             </div>
 
-            <div
-                fxLayout="row wrap"
-                fxLayoutAlign="start start"
-                fxLayoutGap="gappx"
-                fxHide.gt-sm="true"
-                fxHide.sm="false"
-            >
+            <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="gappx" fxHide.gt-sm="true"
+                fxHide.sm="false">
                 <div>
                     <table>
                         <tr>
@@ -76,7 +49,7 @@
                 </div>
                 <div>
                     <table>
-                                              
+
                         <tr *ngIf="eventCenter">
                             <td>
                                 <b>Event Fees </b>
@@ -100,13 +73,13 @@
                             <td>
                                 <p>
                                     {{
-                                        eventCenter.start_date
-                                            | date: "d MMM yyyy"
+                                    eventCenter.start_date
+                                    | date: "d MMM yyyy"
                                     }}
                                     -
                                     {{
-                                        eventCenter.end_date
-                                            | date: "d MMM yyyy"
+                                    eventCenter.end_date
+                                    | date: "d MMM yyyy"
                                     }}
                                 </p>
                             </td>
@@ -115,13 +88,8 @@
                 </div>
             </div>
 
-            <div
-                fxLayout="row wrap"
-                fxLayoutAlign="space-around start"
-                fxLayoutGap="gappx"
-                fxHide.lt-sm="true"
-                fxHide.sm="true"
-            >
+            <div fxLayout="row wrap" fxLayoutAlign="space-around start" fxLayoutGap="gappx" fxHide.lt-sm="true"
+                fxHide.sm="true">
                 <div>
                     <table>
                         <tr>
@@ -150,7 +118,7 @@
                                 <p>{{ userData.participant.mobile }}</p>
                             </td>
                         </tr>
-                       
+
 
                         <tr>
                             <td colspan="2">
@@ -161,7 +129,7 @@
                 </div>
                 <div>
                     <table>
-                       
+
                         <tr *ngIf="eventCenter">
                             <td>
                                 <b>Event Fees </b>
@@ -185,13 +153,13 @@
                             <td>
                                 <p>
                                     {{
-                                        eventCenter.start_date
-                                            | date: "d MMM yyyy"
+                                    eventCenter.start_date
+                                    | date: "d MMM yyyy"
                                     }}
                                     -
                                     {{
-                                        eventCenter.end_date
-                                            | date: "d MMM yyyy"
+                                    eventCenter.end_date
+                                    | date: "d MMM yyyy"
                                     }}
                                 </p>
                             </td>

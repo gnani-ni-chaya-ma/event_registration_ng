@@ -60,7 +60,6 @@
         </mat-form-field>
       </div>
 
-
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="ageGreaterThan21">
 
         <mat-form-field floatPlaceholder="always" class="mat-form-field--no-underline" style="width:70%;">
@@ -69,11 +68,38 @@
           <mat-radio-group aria-label="Select an option" matInput formControlName="role" [required]='ageGreaterThan21'>
             <mat-radio-button value="helper">Helper &nbsp;&nbsp;</mat-radio-button>
             <mat-radio-button value="coordinator">Coordinator &nbsp;&nbsp;</mat-radio-button>
-            <mat-radio-button value="participant">Participant</mat-radio-button>
+            <!-- <mat-radio-button value="participant">Participant</mat-radio-button> -->
           </mat-radio-group>
           <mat-error>"Choose Valid Role"</mat-error>
         </mat-form-field>
       </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Center</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
+          <input type="text" matInput placeholder="YMHT Center" formControlName="ymhtLocationGroup" required
+            [matAutocomplete]="autoGroup" (blur)="validateLocation($event)">
+          <mat-autocomplete #autoGroup="matAutocomplete" [displayWith]="displayFn">
+            <mat-optgroup *ngFor="let group of centerGroupOptions | async" [label]="group.letter">
+              <mat-option *ngFor="let center of group.centers" [value]="center">
+                {{center.name}}
+              </mat-option>
+            </mat-optgroup>
+          </mat-autocomplete>
+          <mat-error>"Enter Valid Location"</mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="isOtherCenter">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Your city name</mat-label>
+          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
+          <input name="other_center" formControlName="other_center" matInput placeholder="Enter your city name"
+            [required]='isOtherCenter'>
+          <mat-error>"Please Enter Your city"</mat-error>
+        </mat-form-field>
+      </div>
+
       <div *ngIf="event">
         <div *ngIf="event.accommodation_provided">
           <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
@@ -125,32 +151,6 @@
         </mat-form-field>
       </div>
 
-      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
-        <mat-form-field fxFlex appearance="outline">
-          <mat-label>Center</mat-label>
-          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
-          <input type="text" matInput placeholder="YMHT Center" formControlName="ymhtLocationGroup" required
-            [matAutocomplete]="autoGroup" (blur)="validateLocation($event)">
-          <mat-autocomplete #autoGroup="matAutocomplete" [displayWith]="displayFn">
-            <mat-optgroup *ngFor="let group of centerGroupOptions | async" [label]="group.letter">
-              <mat-option *ngFor="let center of group.centers" [value]="center">
-                {{center.name}}
-              </mat-option>
-            </mat-optgroup>
-          </mat-autocomplete>
-          <mat-error>"Enter Valid Location"</mat-error>
-
-        </mat-form-field>
-      </div>
-      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="isOtherCenter">
-        <mat-form-field fxFlex appearance="outline">
-          <mat-label>Your city name</mat-label>
-          <mat-icon matPrefix class="mr-12 s-20 secondary-text">domain</mat-icon>
-          <input name="other_center" formControlName="other_center" matInput placeholder="Enter your city name"
-            [required]='isOtherCenter'>
-          <mat-error>"Please Enter Your city"</mat-error>
-        </mat-form-field>
-      </div>
 
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
@@ -162,15 +162,15 @@
             <mat-option value="Hindi">
               Hindi
             </mat-option>
-            <mat-option value="English">
+            <!-- <mat-option value="English">
               English
-            </mat-option>
+            </mat-option> -->
           </mat-select>
         </mat-form-field>
       </div>
 
 
-      <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
+      <!-- <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
         <mat-label>Do you want to ask question to Pujyashree Deepakbhai ?</mat-label>
       </div>
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
@@ -184,16 +184,19 @@
           </mat-radio-group>
           <mat-error>"Please choose: Do you want to ask question to Pujyashree Deepakbhai"</mat-error>
         </mat-form-field>
-      </div>
+      </div> -->
 
-      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="want_to_ask_ques">
+      <!-- <div class="mb-24" fxLayout="row" fxLayoutAlign="start start" *ngIf="want_to_ask_ques">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Question</mat-label>
           <textarea name="ques_text" formControlName="ques_text" matInput type="textarea" placeholder="Question" required></textarea>
           <mat-error>"Enter Valid question"</mat-error>
         </mat-form-field>
-      </div>
+      </div> -->
 
+      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+        <mat-label style="font-style: italic;">Note: Last date to Register will be 15-June</mat-label>
+      </div>
       <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()"
         [disabled]="!eventForm.valid">Submit</button>
     </form>

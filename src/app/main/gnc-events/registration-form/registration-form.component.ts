@@ -109,8 +109,8 @@ export class RegistrationFormComponent implements OnInit {
                 Validators.maxLength(10),
                 Validators.pattern("^[0-9]*$")
             ]],
-            ask_question: ["", [Validators.required]],
-            ques_text: [" ", Validators.required]
+            // ask_question: ["", [Validators.required]],
+            // ques_text: [" ", Validators.required]
         });
 
     }
@@ -224,7 +224,7 @@ export class RegistrationFormComponent implements OnInit {
 
     setAgeListner() {
 
-        if ((this.urlEventId !== "115") && (this.urlEventId !== "116") && (this.urlEventId !== "118")) {
+        if ((this.urlEventId !== "115") && (this.urlEventId !== "116") && (this.urlEventId !== "118")&& (this.urlEventId !== "119")) {
             this.eventForm.get("birthday").valueChanges.subscribe(form => {
                 if (this._calculateAge(form) >= 21) {
                     this.ageGreaterThan21 = true;
