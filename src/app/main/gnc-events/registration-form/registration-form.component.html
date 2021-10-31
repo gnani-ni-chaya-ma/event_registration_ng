@@ -120,7 +120,7 @@
         </div>
       </div>
 
-      <div  fxLayout="row" fxLayoutAlign="start start">
+      <div fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Mobile Number</mat-label>
           <mat-icon matPrefix class="mr-12 s-20 secondary-text">phone</mat-icon>
@@ -131,7 +131,8 @@
         </mat-form-field>
       </div>
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
-        <mat-label style="font-style: italic;">For centres outside India, please also add country code prefix</mat-label>
+        <mat-label style="font-style: italic;">For centres outside India, please also add country code prefix
+        </mat-label>
       </div>
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
@@ -152,7 +153,7 @@
       </div>
 
 
-      <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+      <!-- <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
         <mat-form-field fxFlex appearance="outline">
           <mat-label>Language</mat-label>
           <mat-select formControlName="language" name="language">
@@ -162,12 +163,12 @@
             <mat-option value="Hindi">
               Hindi
             </mat-option>
-            <!-- <mat-option value="English">
+            <mat-option value="English">
               English
-            </mat-option> -->
+            </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
 
       <!-- <div class="accomodation-label" fxLayout="row" fxLayoutAlign="start start">
@@ -195,7 +196,9 @@
       </div> -->
 
       <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
-        <mat-label style="font-style: italic;">Note: Last date to Register will be 15-June</mat-label>
+        <mat-label style="font-style: italic;">
+          <span >Last date to Register will be 2nd November</span>
+        </mat-label>
       </div>
       <button class="submit-btn" color="primary" mat-raised-button type="submit" (click)="submitForm()"
         [disabled]="!eventForm.valid">Submit</button>

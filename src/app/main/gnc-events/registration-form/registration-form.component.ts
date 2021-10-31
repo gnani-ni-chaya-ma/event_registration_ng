@@ -103,7 +103,7 @@ export class RegistrationFormComponent implements OnInit {
                     Validators.pattern("^[0-9]*$")
                 ]
             ],
-            language: ["Gujarati", [Validators.required]],
+            // language: ["Gujarati", [Validators.required]],
             wapp_number: ["", [
                 Validators.minLength(10),
                 Validators.maxLength(10),
@@ -129,7 +129,7 @@ export class RegistrationFormComponent implements OnInit {
         this.event = this.dataService.event;
         console.log(this.event);
         if (!this.event.active) {
-            this.router.navigate(["registration-form",this.urlEventId,"form-closed"])
+            this.router.navigate(["registration-form", this.urlEventId, "form-closed"])
         }
 
         if (!this.event.accommodation_provided) {
@@ -224,7 +224,7 @@ export class RegistrationFormComponent implements OnInit {
 
     setAgeListner() {
 
-        if ((this.urlEventId !== "115") && (this.urlEventId !== "116") && (this.urlEventId !== "118")&& (this.urlEventId !== "119")) {
+        if ((this.urlEventId !== "115") && (this.urlEventId !== "116") && (this.urlEventId !== "118") && (this.urlEventId !== "119") && (this.urlEventId !== "121")) {
             this.eventForm.get("birthday").valueChanges.subscribe(form => {
                 if (this._calculateAge(form) >= 21) {
                     this.ageGreaterThan21 = true;
@@ -292,7 +292,7 @@ export class RegistrationFormComponent implements OnInit {
                     this.eventService.sendEmail(data).catch(err => {
                         console.log(err);
                     });
-                    }
+                }
                 this.navigateToInfo(data);
             })
             .catch(e => {
